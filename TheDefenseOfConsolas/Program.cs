@@ -28,16 +28,16 @@ Console.Write("Target Column? ");
 int column = Int32.Parse(Console.ReadLine());
 
 // compute left side cordinates
-string left = $"({row},{column - 1})";
+string left = $"({row}, {column - 1})";
 
 // compute botom cordinates
-string bottom = $"({row - 1},{column})";
+string bottom = $"({row - 1}, {column})";
 
 // compute right side cordinates
-string right = $"({row},{column + 1})";
+string right = $"({row}, {column + 1})";
 
 // compute top cordinates
-string top = $"({row + 1},{column})";
+string top = $"({row + 1}, {column})";
 
 // Computation beep
 Console.Beep();
