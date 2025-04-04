@@ -18,7 +18,7 @@ Guide link: https://csharpplayersguide.com/
 
 ## Full Map of the Journey 
 
-[CSharpPlayersGuide_Full Map.pdf](https://github.com/user-attachments/files/19606570/CSharpPlayersGuide_Full.Map.pdf)
+![Image](https://github.com/user-attachments/assets/75575571-cb64-46d8-aed3-d76093337a63)
 
 
 ## XP tracker image
