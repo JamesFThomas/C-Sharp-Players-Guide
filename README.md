@@ -9,7 +9,7 @@ Join me on this journey as I aim to complete the quest and harness the skills I 
 "Every journey begins with a single step."
 
 
-## C Sharo Players Guide
+## C Sharp Players Guide
 
 Guide link: https://csharpplayersguide.com/
 
