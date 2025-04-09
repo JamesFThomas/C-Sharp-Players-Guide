@@ -96,8 +96,6 @@ int manticoreRange = 0;
 manticoreRange = SetManticoreRange();
 
 // Player 2 starts the game
-// move all variable definitions and assignments inside of the method
-// pass in the manticore range value set by player 1
 DefendTheCity(manticoreRange);
 
 // 
@@ -176,9 +174,6 @@ int SetCannonRange(int cannonRange)
     return cannonRange;
 
 }
-
-// Modify the method `CalculateHealthDisplayRoundResults` to return a tuple instead of an array.
-// This will allow the deconstruction syntax to work correctly.
 
 (int manticoreHealth, int cityHealth) CalculateHealthDisplayRoundResults(
     int cannonRange, int manticoreRange, int manticoreHealth, int cityHealth, int cannonDamage)
