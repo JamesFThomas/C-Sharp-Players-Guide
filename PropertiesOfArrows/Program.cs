@@ -12,19 +12,23 @@ Objectives:
 - Ensure the whoe program still runs, and Vin can keep creating arrows with it.
 
 */
+
+// Local variables
 string userArrowheadChoice = "";
 string userFletchingChoice = "";
 float userLengthChoice = 0;
 
 
 
+// Application 
 CollectArrowChoice();
 CollectFletchingChoice();
 CollectArrowLength();
 CreateAnArrow();
 
 
-// local methods
+
+// Local methods
 void CollectArrowChoice()
 {
     string? arrowheadChoice;
@@ -98,7 +102,7 @@ void CreateAnArrow()
     Console.WriteLine($"Your arrow will cost {yourArrow.CalculateCost()}");
 }
 
-// TYpes && Classes
+// Types && Classes
 enum Arrowhead
 {
     steel,
@@ -125,7 +129,7 @@ internal class Arrow
     private float  Length { get; }
 
 
-    // Cconstructor
+    // Constructor
     public Arrow(string arrowhead, string fletching, float length)
     {
         Arrowhead = arrowhead;
@@ -173,7 +177,5 @@ internal class Arrow
         return totalCost;
 
     }
-
-
 
 }
