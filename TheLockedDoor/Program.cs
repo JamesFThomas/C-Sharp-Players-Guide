@@ -43,26 +43,54 @@ Objectives:
 // Main method - collect users input 
 int userInput;
 
-Console.Write("Provide the passcode for your new door:  ");
-userInput = Convert.ToInt32(Console.ReadLine());
-
-Door door = new Door(userInput);
-
-//door.DoorDetails(); // door is good at this point check other methods
-
-//door.CloseDoor();
-
-//door.LockDoor();
-
-//Console.Write("Provide the passcode to unlock your door: ");
-//userInput = Convert.ToInt32(Console.ReadLine());
-
-//door.UnLockDoor(userInput);
-
-//door.OpenDoor();
+CreateADoor();
 
 
 
+
+// local methods
+void CreateADoor()
+{
+    Console.Write("Provide the passcode for your new door:  ");
+    userInput = Convert.ToInt32(Console.ReadLine());
+
+    Door door = new Door(userInput);
+
+    door.DoorDetails();
+
+
+WrongAction: DoorActions();
+
+    switch (userInput) 
+    {
+        case 1:
+            door.OpenDoor(); 
+            break;
+        case 2:
+            door.CloseDoor();
+            break;
+        case 3:
+            door.UnLockDoor();
+            break;
+        case 4:
+            door.LockDoor();
+            break;
+        default:
+            Console.WriteLine("Your choices are only 1, 2, 3, or 4.");
+            //DoorActions();
+            goto WrongAction;
+    }
+
+}
+
+void DoorActions()
+{
+    Console.Write("What would you like to do with the door: (1 = open,  2 = close, 3 = unlock, 4 = lock): ");
+    userInput = Convert.ToInt32(Console.ReadLine());
+}
+
+
+// enums && classes
 
 public enum DoorAction
 { 
@@ -139,12 +167,17 @@ public class Door
 
     }
 
-    public void UnLockDoor(int code)
+    public void UnLockDoor()
     {
-        if (!IsValidPasscode(code))
+        // this method should ask user for the passcode
+        Console.Write("Enter the current passcode to unock the door: ");
+        int input = Convert.ToInt32(Console.ReadLine());
+
+
+        if (!IsValidPasscode(input))
             Console.WriteLine("Invalid passcode, door is remains locked");
 
-        if (IsValidPasscode(code))
+        if (IsValidPasscode(input))
         {
             if (_doorState != DoorState.locked)
             {
