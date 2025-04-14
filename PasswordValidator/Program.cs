@@ -31,10 +31,68 @@ Objectives:
 
 */
 
+string? userInput;
 
+string userPrompt = "Please input a valid password: ";
+
+string passwordRules = "Passwords must be: \r\n- between 6 and 13 characters long. \r\n- contain at least one uppercase letter, one lowercase letter, and one number. \r\n- cannot contain an uppercase \"T\" or the ampersand symbol \"&\".";
+
+bool keepRunning = true;
+
+    // create new instance of validator class
+    PasswordValidator passwordValidator = new PasswordValidator();
+
+
+while (keepRunning)
+{
+    // prompt user for input
+    Console.WriteLine(passwordRules);
+    Console.Write(userPrompt);
+
+    // collect user input
+    userInput = Console.ReadLine() ?? "";
+
+    // break loop
+    if (userInput == "exit") keepRunning = false;
+
+    // evaluate input string with PasswordValidator
+    bool result = passwordValidator.ValidatePassword(userInput);
+
+    // display result of validation
+    if (result)  Console.WriteLine($"Your password was valid");
+    if (!result) Console.WriteLine($"Your password was invalid");
+
+}
 
 
 
 
 public class PasswordValidator
-{ }
+{
+    public bool ValidatePassword(string codeString)
+    {
+        bool isValid = false;
+        bool hasUpperCase = false;
+        bool hasLowerCase = false;
+        bool hasNumber = false;
+
+        // fail early 
+        if (string.IsNullOrEmpty(codeString) || (codeString.Length < 6 && codeString.Length > 13)) return isValid;
+
+
+        foreach (char letter in codeString) 
+        {
+            if (char.IsUpper(letter)) hasUpperCase = true;
+            if( char.IsLower(letter)) hasLowerCase = true;
+            if ( char.IsDigit(letter)) hasNumber = true;
+            if ( letter.Equals('T') || letter.Equals('&')) return isValid;
+            
+        }
+
+        if ( hasLowerCase && hasUpperCase && hasNumber ) isValid = true;
+
+        return isValid;
+
+    }
+
+}

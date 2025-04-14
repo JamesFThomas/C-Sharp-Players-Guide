@@ -58,27 +58,54 @@ void CreateADoor()
 
     door.DoorDetails();
 
+    DoorActions();
 
-WrongAction: DoorActions();
+    // A
+    /*
+      
+    WrongAction: DoorActions();
+        switch (userInput)
+        {
+            case 1:
+                door.OpenDoor();
+                break;
+            case 2:
+                door.CloseDoor();
+                break;
+            case 3:
+                door.UnLockDoor();
+                break;
+            case 4:
+                door.LockDoor();
+                break;
+            default:
+                Console.WriteLine("Your choices are only 1, 2, 3, or 4.");
+                goto WrongAction;
+        }
+     
+     */
 
-    switch (userInput) 
+    // B
+    if (userInput == 1) 
     {
-        case 1:
-            door.OpenDoor(); 
-            break;
-        case 2:
-            door.CloseDoor();
-            break;
-        case 3:
-            door.UnLockDoor();
-            break;
-        case 4:
-            door.LockDoor();
-            break;
-        default:
-            Console.WriteLine("Your choices are only 1, 2, 3, or 4.");
-            //DoorActions();
-            goto WrongAction;
+        door.OpenDoor();
+    }
+    else if (userInput == 2) 
+    {
+        door.CloseDoor();
+    }
+    else if (userInput == 3) 
+    {
+        door.UnLockDoor();
+    }
+    else if (userInput == 4) 
+    {
+        door.LockDoor();
+    }
+    else 
+    {
+        Console.WriteLine("Your choices are only 1, 2, 3, or 4.");
+        DoorActions();
     }
 
 }
