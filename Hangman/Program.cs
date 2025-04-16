@@ -36,3 +36,84 @@ Objectives:
 
 */
 
+// Noun Extraction 
+// Game,  Word List, Player,  
+
+
+/*
+ 
+Game Class
+
+Track?
+- display string template 
+
+- current game state variables
+    -- current word
+        ---> Word_List.NewWord()
+
+    -- total number of guesses allowed
+        ---> Word_List.NewWord()
+
+    -- incorrect guesses 
+        ---> Word_List.Guesses()
+
+    -- remaining guesses = total_guesses - incorrect_guesses
+
+    -- last user guest
+        ---> Player.NewGuess()
+
+
+
+
+Do?
+- Start a new game
+    --> .Run()
+        ---> creates a new Player()
+        ---> 
+
+- Display current game state
+    --> .DisplayGameState()
+ 
+*/
+
+
+/*
+
+Word_List Class
+
+Track?
+- list words
+    --> string[] wordList = []
+
+- guesses and if they are correct
+    --> [,,] guesses = []
+
+Do?
+- generate a list of random words
+    --> .GenerateList()
+
+- give a new random word from the word list and total guesses for that word
+    --> .NewWord()
+
+- check to see if guess is in word, log guess and correctness
+    --> IsCorrectGuess()
+ 
+*/
+
+
+/*
+
+Player Class
+
+Track?
+- previous picks
+    --> string[] guesses = [];
+
+Do?
+- collect user input / make a new guess
+    .NewGuess()
+ 
+
+*/
+
+
