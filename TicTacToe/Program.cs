@@ -42,16 +42,6 @@ Objectives:
 // Noun Extraction
 //--> Player, Board, Square, Game, Move
 
-
-// Application 
-
-Game game = new Game();
-
-game.PlayGame();
-
-
-// Classes
-
 /*
 
 Game Class 
@@ -61,74 +51,11 @@ Track?
 - track rounds players have played
 
 Do?
-- display whose turn it is - done
 - display the board state for players - board.DisplayBoard() working
 - display winning or draw message prompt to player   - board.CheckBoard() working
 - collect player input - not done 
  
 */
-public class Game
-{ 
-   private int roundsPlayed { get; set; } = 1;
-
-   public void PlayGame()
-    {
-        // create a new board a two new players
-        Board board = new Board();
-        Player playerX = new Player("X");
-        Player playerO = new Player("0");
-
-        // display greeting message
-        Greeting();
-
-        // display whose turn it is
-        DisplayPLayersTurn();
-
-
-        while (  board.boardState == "open") 
-        { 
-        // let player make a move
-        playerX.MakeMove(board);
-        playerO.MakeMove(board);
-
-        // check the board for a winner or draw
-        // check board state before increasing round 
-        board.CheckBoard();
-
-        // repeat until game is over
-        IncreaseRoundsPlayed();
-
-        }
-
-        board.ResetBoard();
-        EndGame();
-
-    }
-
-    public void DisplayPLayersTurn()
-    {
-        // Fixing the CS1003 error by properly parenthesizing the conditional expression  
-        Console.WriteLine($"It is the {(roundsPlayed % 2 == 0 ? "X" : "O")}'s turn to play.");
-    }
-
-    public void Greeting()
-    {
-        Console.WriteLine("Tic Tac Toe.");
-        Console.WriteLine("Let's do this, Player X wil go first!");
-    }
-
-    public void IncreaseRoundsPlayed() // make into a property later 
-    {
-        // Increase the rounds played by 1
-        roundsPlayed += 1;
-    }
-
-    public void EndGame()
-    {
-        roundsPlayed = 1;
-        Console.WriteLine("Game Over! Thanks for playing.");
-    }
-}
 
 /*
 
@@ -145,6 +72,74 @@ Do?
 - check board then indicate when a player has won or board is full - working
  
 */
+
+/*
+
+Player Class 
+
+Track?
+- It can simply take th user input nothing to track
+
+Do?
+- take user input to make a move
+ 
+*/
+
+
+// Application 
+
+Game game = new Game();
+
+game.PlayGame();
+
+
+// Classes
+
+public class Game
+{ 
+   public void PlayGame()
+    {
+        // create a new board a two new players
+        Board board = new Board();
+        Player playerX = new Player("X");
+        Player playerO = new Player("0");
+
+        // display greeting message
+        Greeting();
+
+
+        while (  board.boardState == "open") 
+        { 
+
+            playerX.MakeMove(board);
+            if (board.boardState != "open") break;
+
+
+            playerO.MakeMove(board);
+            if (board.boardState != "open") break;
+
+        }
+
+        board.ResetBoard();
+        EndGame();
+
+    }
+
+
+    public void Greeting()
+    {
+        Console.WriteLine("Tic Tac Toe.");
+        Console.WriteLine("Let's do this, Player X wil go first!");
+    }
+
+
+    public void EndGame()
+    {
+        Console.WriteLine("Game Over! Thanks for playing.");
+    }
+}
+
+
 public class Board
 {
     // How will I represent the board? Tuple with named values
@@ -153,7 +148,6 @@ public class Board
 
     public void DisplayBoard()
     {
-        //Console.Clear();
         Console.WriteLine($" {board.seven} | {board.eight} | {board.nine}" +
             $"\r\n-----------" +
             $"\r\n {board.four} | {board.five} | {board.six} " +
@@ -164,7 +158,6 @@ public class Board
 
     public void ResetBoard()
     {
-        // Reset the board to empty
         board = ("", "", "", "", "", "", "", "", "");
     }
 
@@ -201,8 +194,6 @@ public class Board
                 board.nine = playerMark;
                 break;
         }
-
-        // check to see if there is a winner or if the board is full
 
     }
 
@@ -244,48 +235,56 @@ public class Board
         if(one != "" && one == two && one == three)
         {
             DisplayWinner(one);
+            DisplayBoard();
             boardState = "won";
             return;
         }
         if (four != "" && four == five && four == six)
         { 
             DisplayWinner(four);
+            DisplayBoard();
             boardState = "won";
             return;
         }
         if (seven != "" && seven == eight && seven == nine)
         {
             DisplayWinner(seven);
+            DisplayBoard();
             boardState = "won";
             return;
         }
         if (one != "" && one == four && one == seven)
         {
             DisplayWinner(one);
+            DisplayBoard();
             boardState = "won";
             return;
         }
         if (two != "" && two == five && two == eight)
         { 
             DisplayWinner(two);
+            DisplayBoard();
             boardState = "won";
             return;
         }
         if (three != "" && three == six && three == nine)
         {
             DisplayWinner(three);
+            DisplayBoard();
             boardState = "won";
             return;
         }
         if (one != "" && one == five && one == nine)
         {
             DisplayWinner(one);
+            DisplayBoard();
             boardState = "won";
             return;
         }
         if (three != "" && three == five && three == seven)
         { 
             DisplayWinner(three);
+            DisplayBoard();
             boardState = "won";
             return;
         }
@@ -294,6 +293,7 @@ public class Board
         if (one != "" && two != "" && three != "" && four != "" && five != "" && six != "" && seven != "" && eight != "" && nine != "")
         {
             Console.WriteLine("The board is full, Game is a draw!");
+            DisplayBoard();
             boardState = "draw";
             return;
         }
@@ -312,17 +312,7 @@ public class Board
 
 }
 
-/*
 
-Player Class 
-
-Track?
-- It can simply take th user input nothing to track
-
-Do?
-- take user input to make a move
- 
-*/
 public class Player
 { 
     private string playerMark { get; set; }
@@ -334,7 +324,7 @@ public class Player
 
     public void MakeMove(Board gameBoard)
     {
-        string prompt1 = "What open square do you want to play in? (1-9)";
+        string prompt1 = $"PLayer {playerMark}: What open square do you want to play in? (1-9)";
 
         // display gameBoard here  
         gameBoard.DisplayBoard();
@@ -363,6 +353,7 @@ public class Player
         else
         {
             gameBoard.UpdateBoard(squareNumber, playerMark);
+            gameBoard.CheckBoard();
             return;
         }
     }
