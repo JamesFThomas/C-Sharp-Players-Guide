@@ -68,9 +68,10 @@ public class LoadPackProgram
     {
         Console.WriteLine("Welcome to the Inventory System!");
 
-        Pack pack = CreateNewPack(); // create a new pack with user input values
+                //Console.WriteLine("Pack has reached max weight! No more items can be added.");
+        Pack pack = CreateNewPack();
 
-        LoadPack(pack); // load pack with items
+        LoadPack(pack); 
 
     }
 
@@ -87,10 +88,10 @@ public class LoadPackProgram
         Console.WriteLine("Please enter the maximum volume your pack can hold:");
         double maxVolume = Convert.ToDouble(Console.ReadLine());
         
-        pack = new Pack(maxItems, maxWeight, maxVolume); // create a new pack with user input values
+        pack = new Pack(maxItems, maxWeight, maxVolume); 
         Console.WriteLine($"Pack created successfully! \r\n max items: {maxItems}, max weight: {maxWeight}, max volume: {maxVolume}.\r\n");
 
-        return pack; // return the new pack
+        return pack; 
     }
 
     public void LoadPack(Pack pack)
@@ -109,23 +110,23 @@ public class LoadPackProgram
 
             wasAdded = pack.AddItem(currentItemToAdd);
 
-            ItemAdded(currentItemToAdd, wasAdded);
+            ItemAddedMessage(currentItemToAdd, wasAdded);
 
             if (pack.GetCurrentWeight() == pack.GetMaxWeight())
             {
-                Console.WriteLine("Pack has reached max weight! No more items can be added.");
+                PackReachedLimit(1);
                 break;
             }
 
             if (pack.GetCurrentVolume() == pack.GetMaxVolume())
             {
-                Console.WriteLine("Pack has reached max Volume! No more items can be added.");
+                PackReachedLimit(2);
                 break;
             }
 
             if (pack.GetCurrentItemCount() == pack.GetMaxItemCount())
             {
-                Console.WriteLine("Pack has reached max Item limit! No more items can be added.");
+                PackReachedLimit(3);
                 break;
             }
 
@@ -134,13 +135,25 @@ public class LoadPackProgram
 
     }
 
-    public void ItemAdded(InventoryItem currentItemToAdd, bool wasItemAdded)
+    public void ItemAddedMessage(InventoryItem currentItemToAdd, bool wasItemAdded)
     {
         if (wasItemAdded)
         Console.WriteLine($"\n Item: {currentItemToAdd.GetType().Name} volume: {currentItemToAdd.Volume} weight: {currentItemToAdd.Weight} was ADDED to your pack!");
 
         else
             Console.WriteLine($"Failed to add {currentItemToAdd.GetType().Name} to the pack. \nAdding this item would exceed a set pack limit!");
+    }
+
+    public void PackReachedLimit(int messageNumber)
+    {
+        if (messageNumber == 1)
+            Console.WriteLine("Pack has reached max weight! No more items can be added.");
+
+        if (messageNumber == 2)
+            Console.WriteLine("Pack has reached max Volume! No more items can be added.");
+
+        if (messageNumber == 3)
+            Console.WriteLine("Pack has reached max Item limit! No more items can be added.");
     }
 
 }
