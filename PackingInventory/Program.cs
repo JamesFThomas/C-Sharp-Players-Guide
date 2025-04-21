@@ -68,7 +68,6 @@ public class LoadPackProgram
     {
         Console.WriteLine("Welcome to the Inventory System!");
 
-                //Console.WriteLine("Pack has reached max weight! No more items can be added.");
         Pack pack = CreateNewPack();
 
         LoadPack(pack); 
