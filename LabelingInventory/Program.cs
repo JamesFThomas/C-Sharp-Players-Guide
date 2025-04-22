@@ -2,7 +2,9 @@
  
 Title: Labeling Inventory 
 
-You realize that your inventory items are not easy to sort through. If you could make it easy to label all of your inventory items, it would be easier to know what items are in your pack.
+You realize that your inventory items are not easy to sort through. 
+
+If you could make it easy to label all of your inventory items, it would be easier to know what items are in your pack.
 
 Modify your inventory program from the previous level as described below.
 
@@ -26,6 +28,34 @@ LoadPackProgram program = new LoadPackProgram();
 
 program.Start();
 
+Arrow arrow = new Arrow();
+Bow bow = new Bow();
+Rope rope = new Rope();
+Water water = new Water();
+FoodRations foodRations = new FoodRations();
+Sword sword = new Sword();
+
+
+// Working 
+//Console.WriteLine(arrow.ToString()); // Output: Arrow
+//Console.WriteLine(bow.ToString()); // Output: Bow
+//Console.WriteLine(rope.ToString()); // Output: Rope
+//Console.WriteLine(water.ToString()); // Output: Water
+//Console.WriteLine(foodRations.ToString()); // Output: FoodRations
+//Console.WriteLine(sword.ToString()); // Output: Sword
+
+
+
+// working 
+//Pack pack = new Pack(5, 60, 60);
+
+//pack.AddItem(arrow);
+//pack.AddItem(bow);
+//pack.AddItem(rope);
+
+//var contents = pack.ToString(); 
+
+//Console.WriteLine(contents); // Output: Pack containing: Arrow, Bow, Rope"
 
 
 // Classes
@@ -71,13 +101,13 @@ public class LoadPackProgram
         while (pack.GetCurrentItemCount() <= pack.GetMaxItemCount() && pack.GetCurrentVolume() <= pack.GetMaxVolume() && pack.GetCurrentVolume() <= pack.GetMaxVolume())
         {
 
-            pack.DisplayPackContents();
+            pack.DisplayPackDetails();
 
             currentItemToAdd = pack.PickItem();
 
             wasAdded = pack.AddItem(currentItemToAdd);
 
-            ItemAddedMessage(currentItemToAdd, wasAdded);
+            ItemAddedMessage(pack, currentItemToAdd, wasAdded);
 
             if (pack.GetCurrentWeight() == pack.GetMaxWeight())
             {
@@ -102,10 +132,17 @@ public class LoadPackProgram
 
     }
 
-    public void ItemAddedMessage(InventoryItem currentItemToAdd, bool wasItemAdded)
+    public void ItemAddedMessage(Pack pack, InventoryItem currentItemToAdd, bool wasItemAdded)
     {
         if (wasItemAdded)
-            Console.WriteLine($"\n Item: {currentItemToAdd.GetType().Name} volume: {currentItemToAdd.Volume} weight: {currentItemToAdd.Weight} was ADDED to your pack!");
+        {
+            // Item added successfully - display item name with overridden ToString() method
+            Console.WriteLine($"\nA {currentItemToAdd.ToString()} was ADDED to your pack!");
+
+            // Display the current contents of the pack - with overridden ToString() method
+            Console.WriteLine($"\n{pack.ToString()}");
+
+        }
 
         else
             Console.WriteLine($"Failed to add {currentItemToAdd.GetType().Name} to the pack. \nAdding this item would exceed a set pack limit!");
@@ -141,37 +178,72 @@ public class InventoryItem
 
 
 // Derived Classes
+
 public class Arrow : InventoryItem
 {
     public Arrow() : base(0.1, 0.05) { }
+
+    public override string ToString()
+    {
+        string name = this.GetType().Name;
+
+        return name;
+    }
 }
 
 public class Bow : InventoryItem
 {
     public Bow() : base(1, 4) { }
+
+    public override string ToString()
+    {
+        string name = this.GetType().Name;
+
+        return name;
+    }
 }
 
 public class Rope : InventoryItem
 {
     public Rope() : base(1, 1.5) { }
+
+    public override string ToString()
+    {
+        string name = this.GetType().Name;
+        return name;
+    }
 }
 
 public class Water : InventoryItem
 {
     public Water() : base(2, 3) { }
+
+    public override string ToString()
+    {
+        string name = this.GetType().Name;
+        return name;
+    }
 }
 
 public class FoodRations : InventoryItem
 {
     public FoodRations() : base(1, 0.5) { }
+    public override string ToString()
+    {
+        string name = this.GetType().Name;
+        return name;
+    }
 }
 
 public class Sword : InventoryItem
 {
     public Sword() : base(5, 3) { }
+    public override string ToString()
+    {
+        string name = this.GetType().Name;
+        return name;
+    }
 }
-
-
 
 public class Pack
 {
@@ -184,6 +256,30 @@ public class Pack
         items = new InventoryItem[itemMax];
         maxWeight = weightMax;
         maxVolume = volumeMax;
+    }
+
+    public override string ToString()
+    {
+        // iterate through the items array and build a string of the item names
+        string prefix = "Pack containing: ";
+        string[] contents = new string[items.Length];
+
+        for ( int i = 0; i < items.Length; i++ )
+        {
+            if (items[i] != null)
+            {
+                contents[i] = items[i].ToString(); 
+            }
+        }
+
+        // remove null values from the contents array
+        contents = contents.Where(x => x != null).ToArray();
+
+        // create comma separated string of item names
+        var names = string.Join(", ", contents);
+
+        // return the final string
+        return prefix + names;
     }
 
     public double GetMaxWeight() => maxWeight;
@@ -322,7 +418,7 @@ Item Menu:
         return itemAdded;
     }
 
-    public void DisplayPackContents()
+    public void DisplayPackDetails()
     {
         Console.WriteLine("\nPack Contents:");
 
