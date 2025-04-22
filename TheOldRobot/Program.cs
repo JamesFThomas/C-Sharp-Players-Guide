@@ -60,26 +60,19 @@ Objectives:
  
 */
 
-// Step 5 - Run the program and test it with commands
 RobotProgram robotProgram = new RobotProgram();
 
 robotProgram.RunProgram();
 
 
-/* Step 4:
- 
- - Make your main method able to collect three commands from the console window. 
-    --> Generate new RobotCommand objects based on the text entered. After filling the robot's command set with these new RobotCommand objects, use the robot's Run method to execute them. 
-    --> Example: 
-        > on
-        > north
-        > west
-*/
 public class RobotProgram
 {
     public void RunProgram()
     {
+        // Create a new Robot instance
         Robot robot = new Robot();
+        
+        // Collect 3 user inputs
         (string? input1, string? input2, string? input3) = CollectInputs();
 
         // Create command objects based on the inputs
@@ -97,7 +90,7 @@ public class RobotProgram
 
     private RobotCommand? CreateCommand(string input)
     {
-        RobotCommand? command = null; // Initialize the variable to null
+        RobotCommand? command = null; 
 
         switch (input)
         {
@@ -125,41 +118,43 @@ public class RobotProgram
     }
 
 
-    // Make your main method able to collect three commands from the console window.
     public (string?, string?, string?) CollectInputs()
     {
         string? input1, input2, input3;
-        Console.WriteLine("Enter your first robot command (on/off/north/south/east/west):");
+        string prompt1 = "Enter your first robot command (on/off/north/south/east/west):";
+        string prompt2 = "Enter your second robot command (on/off/north/south/east/west):";
+        string prompt3 = "Enter your third robot command (on/off/north/south/east/west):";
+        string invalidInput = "Invalid input. Please enter a valid command.";
+
+        Console.WriteLine(prompt1);
         input1 = Console.ReadLine();
 
         if (input1 == null || !IsGoodInput(input1))
         {
-            Console.WriteLine("Invalid input. Please enter a valid command.");
-            return CollectInputs(); // Recursive call to re-collect inputs
+            Console.WriteLine(invalidInput);
+            return CollectInputs(); 
         }
 
-        Console.WriteLine("Enter your second robot command (on/off/north/south/east/west):");
+        Console.WriteLine(prompt2);
         input2 = Console.ReadLine();
 
         if (input2 == null || !IsGoodInput(input2))
         {
-            Console.WriteLine("Invalid input. Please enter a valid command.");
-            return CollectInputs(); // Recursive call to re-collect inputs
+            Console.WriteLine(invalidInput);
+            return CollectInputs(); 
         }
 
-        Console.WriteLine("Enter your third robot command (on/off/north/south/east/west):");
+        Console.WriteLine(prompt3);
         input3 = Console.ReadLine();
 
         if (input3 == null || !IsGoodInput(input3))
         {
-            Console.WriteLine("Invalid input. Please enter a valid command.");
-            return CollectInputs(); // Recursive call to re-collect inputs
+            Console.WriteLine(invalidInput);
+            return CollectInputs(); 
         }
 
         return (input1.ToLower(), input2.ToLower(), input3.ToLower());
     }
-    // Generate new RobotCommand objects based on the text entered. 
-    // After filling the robot's command set with these new RobotCommand objects, use the robot's Run method to execute them.
 
     public bool IsGoodInput(string input)
     { 
@@ -176,23 +171,12 @@ public class RobotProgram
 
 }
 
-
-
-// Step 1 Create RobotCommand class 
-/*
- * Working 
- - Create a RobotCommand class with a public and abstract void Run(Robot robot) method.
-    --> The code above should compile after this step
- 
- */
-
 public abstract class RobotCommand
 {
     public abstract void Run(Robot robot);
 
 }
 
-// Step 2 - Make OnCommand and OffCommand classes that inherit from RobotCommand and turn the robot on or off by overriding the Run method.
 
 public class OnCommand : RobotCommand
 {
@@ -210,17 +194,13 @@ public class OffCommand : RobotCommand
     }
 }
 
-// Step 3
-// - Make a NorthCommand, SouthCommand, EastCommand and WestCommand that move the robot 1 unit in the -Y direction, 1 unit in the -X direction, 1 unit in the +Y direction, and 1 unit in the +X direction respectively.
-// --> Also ensure that these commands only work if the robot's IsPowered property is true.
-
 public class NorthCommand : RobotCommand
 {
     override public void Run(Robot robot)
     {
-        if (robot.IsPowered) // check if robot is powered
+        if (robot.IsPowered) 
         {
-            robot.Y++; // increment -> go up along y axis
+            robot.Y++; 
         }
     }
 }
@@ -230,9 +210,9 @@ public class SouthCommand: RobotCommand
 {
     override public void Run(Robot robot)
     {
-        if (robot.IsPowered) // check if robot is powered
+        if (robot.IsPowered) 
         {
-            robot.Y--; // decrement -> go down along y axis
+            robot.Y--; 
         }
     }
 
@@ -242,9 +222,9 @@ public class EastCommand : RobotCommand
 {
     override public void Run(Robot robot)
     {
-        if (robot.IsPowered) // check if robot is powered
+        if (robot.IsPowered) 
         {
-            robot.X++; // increment -> go right along x axis
+            robot.X++; 
         }
     }
 }
@@ -253,9 +233,9 @@ public class WestCommand : RobotCommand
 {
     override public void Run(Robot robot)
     {
-        if (robot.IsPowered) // check if robot is powered
+        if (robot.IsPowered) 
         {
-            robot.X--; // decrement -> go left along x axis
+            robot.X--; 
         }
     }
 }
