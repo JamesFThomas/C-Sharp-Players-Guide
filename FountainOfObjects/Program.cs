@@ -232,6 +232,18 @@ public class Board
         
         Rooms[0, 2] = new Fountain(0, 2, "Fountain"); // Fountain Room
 
+        // Load the rest of the rooms with empty rooms
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                if (Rooms[i, j] == null)
+                {
+                    Rooms[i, j] = new Empty(i, j, "Empty"); // Empty Room
+                }
+            }
+        }
+
     }
 
     // Display the board to the player
@@ -291,6 +303,7 @@ public class Board
             if (IsAValidMove(player.CurrentRow - 1, player.CurrentColumn))
             {
                 player.CurrentRow -= 1; // update player position
+                InteractWithRoom(player); // interact with the room
                 return;
             }
 
@@ -303,6 +316,7 @@ public class Board
             if (IsAValidMove(player.CurrentRow + 1, player.CurrentColumn))
             {
                 player.CurrentRow += 1; // update player position
+                InteractWithRoom(player); // interact with the room
                 return;
             }
 
@@ -314,6 +328,7 @@ public class Board
             if (IsAValidMove(player.CurrentRow, player.CurrentColumn + 1))
             {
                 player.CurrentColumn += 1; // move player right
+                InteractWithRoom(player); // interact with the room
                 return;
             }
 
@@ -326,6 +341,7 @@ public class Board
             if (IsAValidMove(player.CurrentRow, player.CurrentColumn - 1))
             {
                 player.CurrentColumn -= 1; // move player left
+                InteractWithRoom(player); // interact with the room
                 return;
             }
 
@@ -334,32 +350,17 @@ public class Board
         }
         else if (input == "enable fountain")
         {
-            if (player.CurrentRow == 0 && player.CurrentColumn == 2)
-            {
-                IsFountainOn = true; // enable fountain
-                // make method to interact with room at current coordinates instead of this console.writeline below
-                Console.WriteLine("The Fountain of Objects has been reactivated!");
-                return;
-            }
-            else
-            {
-                Console.WriteLine("You can not enable the fountain in this room, it is not here.");
-                return;
-            }
+            IsFountainOn = true; // enable fountain, make method to interact with room at current coordinates instead of this console.writeline b
+            var enableFountain = true;
+            InteractWithRoom(player, enableFountain); // interact with the room
+            return;
         }
         else if (input == "disable fountain")
         {
-            if (player.CurrentRow == 0 && player.CurrentColumn == 2)
-            {
-                IsFountainOn = false; // disable fountain
-                // make method to interact with room at current coordinates instead of this console.writeline below
-                Console.WriteLine("The Fountain of Objects has been DeActivated!");
-                return;
-            }
-            else
-            {
-                Console.WriteLine("You can not disable the fountain in this room, it is not here.");
-            }
+            IsFountainOn = false; // disable fountain, make method to interact with room at current coordinates instead of this console.writeline below
+            var disableFountain = true;
+            InteractWithRoom(player, disableFountain); // interact with the room
+            return;
         }
         else if (input == "quit")
         {
@@ -368,21 +369,72 @@ public class Board
         }
     }
 
+    // Update the InteractWithRoom method to cast IRoom to IActivatableRoom before calling Enable or Disable
+    public void InteractWithRoom(Player player, bool enableFountain = false, bool disableFountain = false)
+    {
+        // Check if the current room is not the Fountain room
+        if ((player.CurrentRow != 0 && player.CurrentColumn != 2) && (enableFountain || disableFountain))
+        {
+                Console.WriteLine("You can not interact with the fountain because it is not in this room.");
+                return;
+        }
+
+        // Sense the room
+        Rooms[player.CurrentRow, player.CurrentColumn].Sense(IsFountainOn);
+
+        // Check if the room is an IActivatableRoom before enabling or disabling
+        if (Rooms[player.CurrentRow, player.CurrentColumn] is IActivatableRoom activatableRoom)
+        {
+            if (enableFountain)
+            {
+                activatableRoom.Enable(); // Activate the fountain
+                return;
+            }
+
+            if (disableFountain)
+            {
+                activatableRoom.Disable(); // Deactivate the fountain
+                return;
+            }
+        }
+    }
 
 
 }
 
 
-public interface IRoom
+public interface IRoom 
+{ 
+    int Row { get; set; } 
+    int Column { get; set; } 
+    string Location { get; } 
+    string Type { get; set; } 
+    void Sense(bool isFountainOn = false); 
+}
+
+public interface IActivatableRoom : IRoom 
+{ 
+    void Enable(); 
+    void Disable(); 
+}
+
+public class Empty : IRoom
 {
     public int Row { get; set; }
     public int Column { get; set; }
     public string Location => $"(Row = {Row}, Column = {Column})";
-    public string Type { get; set; } 
+    public string Type { get; set; }
 
-    public void Sense(bool isFountainOn);
-
-
+    public Empty(int row, int column, string type)
+    {
+        Row = row;
+        Column = column;
+        Type = type;
+    }
+    public void Sense(bool isFountainOn = false)
+    {
+        Console.WriteLine("You sense nothing but the unnatural darkness, this room is empty!");
+    }
 }
 
 
@@ -405,13 +457,16 @@ public class Entrance : IRoom
         if (isFountainOn)
         {
             Console.WriteLine("The Fountain of Objects has been reactivated, and you have escaped with your life!");
+            return;
         }
+
         Console.WriteLine("You see light coming from the cavern entrance.");
+        return;
     }
 
 }
 
-public class  Fountain : IRoom
+public class  Fountain : IActivatableRoom
 {
     public int Row { get; set; }
     public int Column { get; set; }
@@ -429,10 +484,23 @@ public class  Fountain : IRoom
         if (isFountainOn)
         {
             Console.WriteLine("You here rushing waters from the Fountain of Objects, it has been reactivated!");
+            return;
         }
-            Console.WriteLine("You hear water dripping in this room. The fountain of Objects is here!");
+
+        
+        Console.WriteLine("You hear water dripping in this room. The fountain of Objects is here!");
+        return;
     }
 
+    public void Enable()
+    {
+        Console.WriteLine("The Fountain of Objects has been reactivated!");
+    }
+
+    public void Disable()
+    {
+        Console.WriteLine("The Fountain of Objects has been DeActivated!");
+    }
 }
 
 
