@@ -131,7 +131,8 @@ public class Game
         DisplayGameExplanation();
 
         var board = CreateBoard(); 
-        var player = new Player(); 
+        var player = new Player();
+
 
 
         while (player.IsAlive) // while the player is alive
@@ -139,11 +140,16 @@ public class Game
             board.DisplayBoard(player); 
 
             board.MovePlayer(player);
+
+            // Check if the player has won or lost
+            var didPlayerWin = (player.CurrentRow == 0 && player.CurrentColumn == 0) && board.IsFountainOn == true;
             
+            if ( didPlayerWin == true )
+            {
+                board.PlayerWon(player);
+                break;
+            }
         }
-
-        // show Game over message or you won message below
-
 
     }
 
@@ -174,6 +180,8 @@ public class Game
         Console.ForegroundColor = ConsoleColor.Cyan; // change color for user input text 
 
         size = Console.ReadLine()?.ToLower();
+
+        Console.ResetColor(); // reset text color to default
 
         if (String.IsNullOrWhiteSpace(size) || (size != "small" && size != "medium" && size != "large"))
         {
@@ -231,12 +239,11 @@ public class Board
         }
     }
 
-    // Responsible for loading Rooms onto the grid
     public void LoadBoard()
     {
-        Rooms[0, 0] = new Entrance(0, 0, "Entrance"); // Entrance Room
+        Rooms[0, 0] = new Entrance(0, 0, "Entrance"); 
         
-        Rooms[0, 2] = new Fountain(0, 2, "Fountain"); // Fountain Room
+        Rooms[0, 2] = new Fountain(0, 2, "Fountain"); 
 
         // Load the rest of the rooms with empty rooms
         for (int i = 0; i < Rows; i++)
@@ -245,7 +252,7 @@ public class Board
             {
                 if (Rooms[i, j] == null)
                 {
-                    Rooms[i, j] = new Empty(i, j, "Empty"); // Empty Room
+                    Rooms[i, j] = new Empty(i, j, "Empty"); 
                 }
             }
         }
@@ -255,7 +262,7 @@ public class Board
     // Display the board to the player
     public void DisplayBoard(Player player)
     {
-        Console.WriteLine($"{Size} Game Board");
+        Console.WriteLine($"\n{Size} Game Board");
 
         for (int i = 0; i < Rows; i++)
         {
@@ -295,7 +302,7 @@ public class Board
 
     public void InvalidMove(string direction)
     {
-        Console.ForegroundColor = ConsoleColor.Magenta; // narrative items in magenta
+        Console.ForegroundColor = ConsoleColor.White; // descriptive text in white
         Console.WriteLine($"You can not move in that direction: {direction}");
     }
 
@@ -311,7 +318,6 @@ public class Board
             {
                 player.CurrentRow -= 1; // update player position
                 SenseRoom(player); // sense the room
-                //InteractWithRoom(player); // interact with the room
                 return;
             }
 
@@ -323,9 +329,8 @@ public class Board
         {
             if (IsAValidMove(player.CurrentRow + 1, player.CurrentColumn))
             {
-                player.CurrentRow += 1; // update player position
-                SenseRoom(player); // sense the room
-                //InteractWithRoom(player); // interact with the room
+                player.CurrentRow += 1; 
+                SenseRoom(player); 
                 return;
             }
 
@@ -336,9 +341,8 @@ public class Board
         {
             if (IsAValidMove(player.CurrentRow, player.CurrentColumn + 1))
             {
-                player.CurrentColumn += 1; // move player right
-                SenseRoom(player); // sense the room
-                //InteractWithRoom(player); // interact with the room
+                player.CurrentColumn += 1; 
+                SenseRoom(player); 
                 return;
             }
 
@@ -350,9 +354,8 @@ public class Board
         {
             if (IsAValidMove(player.CurrentRow, player.CurrentColumn - 1))
             {
-                player.CurrentColumn -= 1; // move player left
-                SenseRoom(player); // sense the room
-                //InteractWithRoom(player); // interact with the room
+                player.CurrentColumn -= 1; 
+                SenseRoom(player); 
                 return;
             }
 
@@ -362,57 +365,22 @@ public class Board
         }
         else if (input == "enable fountain")
         {
-            IsFountainOn = true; // enable fountain
-            var enableFountain = true;
-            InteractWithRoom(player, enableFountain); 
+            EnableFountain(player); 
             return;
         }
         else if (input == "disable fountain")
         {
-            IsFountainOn = false; // disable fountain
-            var disableFountain = true;
-            InteractWithRoom(player, disableFountain); 
+            DisableFountain(player);
             return;
         }
         else if (input == "quit")
         {
             player.IsAlive = false;
-            return;
-        }
-    }
-
-
-    public void InteractWithRoom(Player player, bool enableFountain = false, bool disableFountain = false)
-    {
-        var isFountainRoom = (player.CurrentRow == 0 && player.CurrentColumn == 2);
-        var currentRoom = Rooms[player.CurrentRow, player.CurrentColumn];
-
-
-        // Check if the current room is not the Fountain room
-        if ( !isFountainRoom && (enableFountain || disableFountain))
-        {
-
             Console.ForegroundColor = ConsoleColor.White; // descriptive text in white
-            Console.WriteLine("You can not interact with the fountain because it is not in this room.");
+            Console.WriteLine("Thanks for playing, Quitter!");
+            Console.ResetColor();
             return;
         }
-
-        // Check if current room is an IActivatableRoom before enabling or disabling
-        if ( currentRoom is IActivatableRoom activatableRoom && (enableFountain || disableFountain))
-        {
-            if (enableFountain)
-            {
-                activatableRoom.Enable(); 
-                return;
-            }
-
-            if (disableFountain)
-            {
-                activatableRoom.Disable(); 
-                return;
-            }
-        }
-
     }
 
     public void SenseRoom(Player player)
@@ -421,6 +389,58 @@ public class Board
         Rooms[player.CurrentRow, player.CurrentColumn].Sense(IsFountainOn);
     }
 
+    public void EnableFountain(Player player)
+    {
+
+        var currentRoom = Rooms[player.CurrentRow, player.CurrentColumn];
+
+
+        if (currentRoom is IActivatableRoom activatableRoom)
+        {
+            IsFountainOn = true;
+            activatableRoom.Enable();
+            return;
+        }
+
+        Console.ForegroundColor = ConsoleColor.White; // descriptive text in white
+        Console.WriteLine("You can not interact with the fountain because it is not in this room.");
+        Console.ResetColor();
+        return;
+    }
+
+    public void DisableFountain(Player player)
+    {
+        var currentRoom = Rooms[player.CurrentRow, player.CurrentColumn];
+
+        if (currentRoom is IActivatableRoom activatableRoom)
+        {
+            IsFountainOn = false;
+            activatableRoom.Disable();
+            return;
+        }
+        
+        Console.ForegroundColor = ConsoleColor.White; // descriptive text in white
+        Console.WriteLine("You can not interact with the fountain because it is not in this room.");
+        Console.ResetColor();
+        return;
+    }
+
+    public void PlayerWon(Player player)
+    {
+        Console.ForegroundColor = ConsoleColor.Yellow; // text in yellow
+        Console.WriteLine("You Win! Thanks For Playing!");
+        Console.ResetColor();
+        player.IsAlive = false; // end the game
+        return;
+
+    }
+
+    public void PlayerLost(Player player)
+    {
+        Console.ForegroundColor = ConsoleColor.Red; // text in red
+        Console.WriteLine("You Lost! Game Over!");
+        Console.ResetColor();
+    }
 
 }
 
