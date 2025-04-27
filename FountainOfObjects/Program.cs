@@ -116,8 +116,6 @@ You win!
 */
 
 
-using System.Data.Common;
-
 Game Game = new Game(); // create a new game object
 Game.Start(); // start the game
 
@@ -290,19 +288,22 @@ public class Board
         // ensure that the move is valid
         if(input == "move north")
         {
-            if (IsAValidMove(player.CurrentRow + 1, player.CurrentColumn))
+            if (IsAValidMove(player.CurrentRow - 1, player.CurrentColumn))
             {
-                player.CurrentRow += 1; // update player position
+                player.CurrentRow -= 1; // update player position
+                return;
             }
 
             InvalidMove(input);
             MovePlayer(player); 
+            return;
         }
         else if (input == "move south")
         {
-            if (IsAValidMove(player.CurrentRow - 1, player.CurrentColumn))
+            if (IsAValidMove(player.CurrentRow + 1, player.CurrentColumn))
             {
-                player.CurrentRow -= 1; // update player position
+                player.CurrentRow += 1; // update player position
+                return;
             }
 
             InvalidMove(input);
@@ -313,16 +314,19 @@ public class Board
             if (IsAValidMove(player.CurrentRow, player.CurrentColumn + 1))
             {
                 player.CurrentColumn += 1; // move player right
+                return;
             }
 
             InvalidMove(input);
             MovePlayer(player); 
+            return;
         }
         else if (input == "move west")
         {
             if (IsAValidMove(player.CurrentRow, player.CurrentColumn - 1))
             {
                 player.CurrentColumn -= 1; // move player left
+                return;
             }
 
             InvalidMove(input);
@@ -335,10 +339,12 @@ public class Board
                 IsFountainOn = true; // enable fountain
                 // make method to interact with room at current coordinates instead of this console.writeline below
                 Console.WriteLine("The Fountain of Objects has been reactivated!");
+                return;
             }
             else
             {
                 Console.WriteLine("You can not enable the fountain in this room, it is not here.");
+                return;
             }
         }
         else if (input == "disable fountain")
@@ -348,6 +354,7 @@ public class Board
                 IsFountainOn = false; // disable fountain
                 // make method to interact with room at current coordinates instead of this console.writeline below
                 Console.WriteLine("The Fountain of Objects has been DeActivated!");
+                return;
             }
             else
             {
@@ -357,6 +364,7 @@ public class Board
         else if (input == "quit")
         {
             player.IsAlive = false;
+            return;
         }
     }
 
