@@ -123,8 +123,6 @@ Game.Start(); // start the game
 
 public class Game
 {
-    // Responsible for starting the game and managing the game loop
-
     public void Start()
     {
         
@@ -135,13 +133,12 @@ public class Game
 
 
 
-        while (player.IsAlive) // while the player is alive
+        while (player.IsAlive) 
         {
             board.DisplayBoard(player); 
 
             board.MovePlayer(player);
 
-            // Check if the player has won or lost
             var didPlayerWin = (player.CurrentRow == 0 && player.CurrentColumn == 0) && board.IsFountainOn == true;
             
             if ( didPlayerWin == true )
@@ -153,7 +150,6 @@ public class Game
 
     }
 
-    // Create Game explanation to displayed at start of Game 
     public void DisplayGameExplanation()
     {
         Console.ForegroundColor = ConsoleColor.Magenta; // narrative items in magenta
@@ -166,7 +162,7 @@ public class Game
             Good luck!
             ");
 
-        Console.ResetColor(); // reset text color to default
+        Console.ResetColor(); 
     }
 
     public Board CreateBoard() 
@@ -175,17 +171,17 @@ public class Game
 
         Console.ForegroundColor = ConsoleColor.White; // descriptive text in white
 
-        Console.WriteLine("Please select a board size: small, medium, or large");
+        Console.Write("Please select a board size: small, medium, or large: ");
 
-        Console.ForegroundColor = ConsoleColor.Cyan; // change color for user input text 
+        Console.ForegroundColor = ConsoleColor.Cyan; 
 
         size = Console.ReadLine()?.ToLower();
 
-        Console.ResetColor(); // reset text color to default
+        Console.ResetColor(); 
 
         if (String.IsNullOrWhiteSpace(size) || (size != "small" && size != "medium" && size != "large"))
         {
-            Console.ForegroundColor = ConsoleColor.White; // descriptive text in white
+            Console.ForegroundColor = ConsoleColor.White; 
 
             Console.WriteLine("Must enter a valid board size");
             
@@ -245,7 +241,6 @@ public class Board
         
         Rooms[0, 2] = new Fountain(0, 2, "Fountain"); 
 
-        // Load the rest of the rooms with empty rooms
         for (int i = 0; i < Rows; i++)
         {
             for (int j = 0; j < Columns; j++)
@@ -259,10 +254,9 @@ public class Board
 
     }
 
-    // Display the board to the player
     public void DisplayBoard(Player player)
     {
-        Console.WriteLine($"\n{Size} Game Board");
+        Console.WriteLine($"\n{Size} Game Board\n");
 
         for (int i = 0; i < Rows; i++)
         {
@@ -289,7 +283,6 @@ public class Board
         }
     }
 
-    // Ensure the move is on the board
     public bool IsAValidMove(int row, int column)
     {
         if (row < 0 || row >= Rows || column < 0 || column >= Columns)
@@ -302,7 +295,7 @@ public class Board
 
     public void InvalidMove(string direction)
     {
-        Console.ForegroundColor = ConsoleColor.White; // descriptive text in white
+        Console.ForegroundColor = ConsoleColor.White; 
         Console.WriteLine($"You can not move in that direction: {direction}");
     }
 
@@ -311,7 +304,6 @@ public class Board
 
         string? input = player.GetInput();
 
-        // ensure that the move is valid
         if(input == "move north")
         {
             if (IsAValidMove(player.CurrentRow - 1, player.CurrentColumn))
@@ -375,11 +367,7 @@ public class Board
         }
         else if (input == "quit")
         {
-            player.IsAlive = false;
-            Console.ForegroundColor = ConsoleColor.White; // descriptive text in white
-            Console.WriteLine("Thanks for playing, Quitter!");
-            Console.ResetColor();
-            return;
+            PlayerQuit(player);
         }
     }
 
@@ -402,7 +390,7 @@ public class Board
             return;
         }
 
-        Console.ForegroundColor = ConsoleColor.White; // descriptive text in white
+        Console.ForegroundColor = ConsoleColor.White; 
         Console.WriteLine("You can not interact with the fountain because it is not in this room.");
         Console.ResetColor();
         return;
@@ -419,7 +407,7 @@ public class Board
             return;
         }
         
-        Console.ForegroundColor = ConsoleColor.White; // descriptive text in white
+        Console.ForegroundColor = ConsoleColor.White; 
         Console.WriteLine("You can not interact with the fountain because it is not in this room.");
         Console.ResetColor();
         return;
@@ -427,8 +415,8 @@ public class Board
 
     public void PlayerWon(Player player)
     {
-        Console.ForegroundColor = ConsoleColor.Yellow; // text in yellow
-        Console.WriteLine("You Win! Thanks For Playing!");
+        Console.ForegroundColor = ConsoleColor.Yellow; 
+        Console.WriteLine("\nYou Win! Thanks For Playing!");
         Console.ResetColor();
         player.IsAlive = false; // end the game
         return;
@@ -437,9 +425,19 @@ public class Board
 
     public void PlayerLost(Player player)
     {
-        Console.ForegroundColor = ConsoleColor.Red; // text in red
-        Console.WriteLine("You Lost! Game Over!");
+        Console.ForegroundColor = ConsoleColor.Red; 
+        Console.WriteLine("\nYou Lost! Game Over!");
         Console.ResetColor();
+        player.IsAlive = false; 
+    }
+
+    void PlayerQuit(Player player)
+    {
+        Console.ForegroundColor = ConsoleColor.Red; // text in red
+        Console.WriteLine("\nThanks for playing, Quitter!");
+        Console.ResetColor();
+        player.IsAlive = false; 
+        return;
     }
 
 }
@@ -475,7 +473,7 @@ public class Empty : IRoom
     }
     public void Sense(bool isFountainOn = false)
     {
-        Console.ForegroundColor = ConsoleColor.White; // descriptive text in white
+        Console.ForegroundColor = ConsoleColor.White; 
         Console.WriteLine("You sense nothing but the unnatural darkness, this room is empty!");
         Console.ResetColor(); 
         return;
@@ -572,16 +570,15 @@ public class Player
 
     public string GetInput()   
     {
-        Console.ForegroundColor = ConsoleColor.White; // descriptive text in white
-        string prompt = "What do you want to do? ";
+        Console.ForegroundColor = ConsoleColor.White; 
+        string prompt = "\nWhat do you want to do? ";
 
         Console.Write(prompt);
 
-        Console.ForegroundColor = ConsoleColor.Cyan; // user input text in cyan
+        Console.ForegroundColor = ConsoleColor.Cyan; 
         string? userInput = Console.ReadLine()?.ToLower();
         Console.ResetColor(); 
 
-        // Check if input is valid  
         if (string.IsNullOrWhiteSpace(userInput) || 
             userInput != "move north" && 
             userInput != "move south" && 
@@ -592,7 +589,7 @@ public class Player
             userInput != "enable fountain" && 
             userInput != "disable fountain")
         {
-            Console.ForegroundColor = ConsoleColor.White; // descriptive text in white
+            Console.ForegroundColor = ConsoleColor.White; 
             Console.WriteLine("Must enter a valid input");
             Console.ResetColor(); 
             return GetInput();
@@ -610,7 +607,7 @@ public class Player
 
     public void ShowHelp()
     {
-        Console.ForegroundColor = ConsoleColor.White; // descriptive text in white
+        Console.ForegroundColor = ConsoleColor.White; 
         Console.WriteLine("These are the actions that you can take.");
         Console.WriteLine("You can move through rooms: move north, move south, move east, move west.");
         Console.WriteLine("You can interact with the Fountain Of Objects: enable fountain, disable fountain.");
