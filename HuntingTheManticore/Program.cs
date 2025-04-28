@@ -57,7 +57,7 @@ STATUS:       Round 6:  City: 10/15  Manticore: 3/10
 The cannon is expected to deal 3 damage this round.
 Enter desired cannon range: 32
 That round was a DIRECT HIT!
-The Manitocore has been destroyed! The city of Consolas is safe!
+The Manticore has been destroyed! The city of Consolas is safe!
 
 
 
