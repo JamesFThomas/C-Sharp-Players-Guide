@@ -22,6 +22,24 @@ Objectives:
  
 - Answer this question? Having used both top-level statements and a traditional entry point, which do you prefer? Why?
     --> Answer: 
+        ---> Since I am using the newer C# 10, I prefer the top-level statements because my files are separated into Program and other directories each containing their own classes or namespaces.
+        ---> witting out the Program class in the program file seems redundant and could be a bit confusing later when I look back. 
+    
+
 
 */
+
+
+using Game = DuelingTraditions.Game;
+
+internal class Program
+{
+    static void Main(string[] args)
+    {
+        Game game = new Game();
+        game.Start();
+    }
+}
+
+
 
