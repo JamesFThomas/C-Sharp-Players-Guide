@@ -18,7 +18,7 @@ Their complaints are as follow:
 
 Objective: 
 
-- Create a new static class to ad extensions methods for Random 
+- Create a new static class to add extensions methods for Random 
 
 - As described above, add, a NextDouble extension method that gives a maximum value for a randomly generated double.
 
@@ -28,6 +28,61 @@ Objective:
 
 - Answer this question: In your opinion, would it be better to make a derived AdvancedRandom class that adds these methods or use extension methods and why? 
     --> Answer: 
+        Personally I would make a derived class and add these methods rather than use the extension approach because I am more comfortable with that understanding. 
+        The this parameter can be a little confusing but I se the benefit of using both.  
  
  
 */
+
+
+using System.Numerics;
+using System; 
+
+Random random = new Random();
+
+string[] strings = new[] { "Kayla", "James", "Henry", "Della", "John" };
+
+double myDouble = random.NextDouble(41);
+
+string randomString = random.NextString(strings);
+
+bool myBool = random.CoinFlip(); 
+
+
+Console.WriteLine(myDouble.ToString());
+
+Console.WriteLine(randomString);
+
+Console.WriteLine(myBool.ToString());
+
+
+public static class RandomExtensions
+{
+
+    public static double NextDouble(this Random random, double maxValue = 1.0  )
+    {
+        double result = random.Next() * maxValue;
+
+        return result;
+    }
+
+    public static string NextString(this Random random, params string[] arguments)
+    {
+        
+        int index = random.Next( arguments.Length );
+
+        return arguments[ index ];
+    }
+
+
+    public static bool CoinFlip(this Random random, double percent = .5)
+    {
+        if (random.NextDouble() < percent)
+        {
+            return true;
+        }
+
+        return false;
+
+    }
+}
