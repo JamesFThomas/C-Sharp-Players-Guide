@@ -31,11 +31,57 @@ Objective:
 - Put in a try catch block to handle the exception and display the result. 
 
 - Answer this question: Did you make a custom Exception type or use a existing one? Why did you chose to do what you did? 
-   =>
+   => I made a custom exception just because I wanted to see what it was like. 
 
 - Answer this question: You could write this program without exceptions for learning purposes. If you didn't have that requirement, would you have used an exception? Why or why not?   
-    =>
+    => Without the requirement to write an exception no I would not have structured this application to use one. 
+       Having the player guess match the chosen random number be the trigger for an exception is interesting for teaching but in my mind doesn't apply to the use case of exceptions.
+       Guessing correctly should end the game but not throw and error exception. 
 
 
- 
-*/ 
+*/
+
+using ExeptisGame;
+
+namespace ExeptiGame
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+
+
+            try
+            { 
+                Console.WriteLine("Try");
+
+                throw new CorrectGuessException("You guessed correctly");
+
+
+            }
+            catch (CorrectGuessException ex)
+            { 
+                Console.WriteLine(ex.Message); 
+            }
+            finally
+            { 
+                Console.WriteLine("Finally");
+            
+            }
+
+        }
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
