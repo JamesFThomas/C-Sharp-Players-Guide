@@ -49,13 +49,14 @@ namespace ExeptiGame
     {
         static void Main(string[] args)
         {
-
+            Game game = new Game();
 
             try
             { 
-                Console.WriteLine("Try");
 
-                throw new CorrectGuessException("You guessed correctly");
+                game.Start();
+
+
 
 
             }
@@ -65,7 +66,7 @@ namespace ExeptiGame
             }
             finally
             { 
-                Console.WriteLine("Finally");
+                game.GameOver();
             
             }
 
