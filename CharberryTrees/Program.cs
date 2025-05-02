@@ -53,7 +53,35 @@ Objective:
 - Make a Harvester class that knows about the tree and subscribes to it's Ripened event. Attach a handler that sets the tree's Ripe property back to false.   
     --> Hint: like the notifier class, this could be passed as a constructor parameter. 
 
-- Update your main method to create a tree, and harvester, and get them to work together to grow, notify, and harvest forever. 
+- Update your main method to create a tree, notifier, and harvester, and get them to work together to grow, notify, and harvest forever. 
 
 
 */
+
+namespace CharberryTrees
+{
+    internal class Program
+    {
+
+        public static void Main(string[] args)
+        {
+            CharberryTree tree = new CharberryTree();
+            Notifier notifier = new Notifier(tree);
+            Harvester harvester = new Harvester(tree);
+
+            try
+            { 
+                while (true)
+                {
+                    tree.MaybeGrow();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+        }
+
+    }
+}
