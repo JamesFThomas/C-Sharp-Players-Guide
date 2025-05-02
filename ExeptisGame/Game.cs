@@ -86,7 +86,7 @@ namespace ExeptisGame
             }
 
             
-            Console.WriteLine($"{guess}, Good Guess {player.Id}");
+            Console.WriteLine($"{guess}, Good Guess player {player.Id}");
             TrackPlayerGuess(guess);
         }
 
