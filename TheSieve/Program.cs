@@ -26,3 +26,33 @@ Objective:
  
 */
 
+
+namespace TheSieve
+{
+    internal class Program
+    {
+        public static void Main(string[] args)
+
+        {
+
+            Collector collector = new Collector();
+
+            try
+            {
+                collector.PickFilter();
+
+                var filterType = collector.filterType;
+
+                var sieve = collector.CreateSieve(filterType);
+
+                collector.UseSieveRepeatedly(sieve);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+            }
+        
+        }
+    }
+}
