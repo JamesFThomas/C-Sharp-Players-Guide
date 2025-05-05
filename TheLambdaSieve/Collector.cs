@@ -52,13 +52,13 @@ namespace TheLambdaSieve
             switch (type)
             {
                 case 1:
-                    var evenSieve = new Sieve(IsEven);
+                    var evenSieve = new Sieve(input => input % 2 == 0);
                     return evenSieve;
                 case 2:
-                    var positiveSieve = new Sieve(IsPositive);
+                    var positiveSieve = new Sieve(input => input > 0);
                     return positiveSieve;
                 case 3:
-                    var multiplesOf10sieve = new Sieve(IsMultipleOf10);
+                    var multiplesOf10sieve = new Sieve(input => input % 10 == 0);
                     return multiplesOf10sieve;
                 default:
                     throw new ArgumentException("Unable to create a Sieve with that type of filter");
@@ -99,10 +99,5 @@ namespace TheLambdaSieve
 
         }
 
-        public bool IsEven(int input) => input % 2 == 0;
-
-        public bool IsPositive(int input) => input > 0;
-
-        public bool IsMultipleOf10(int input) => input % 10 == 0;
     }
 }
