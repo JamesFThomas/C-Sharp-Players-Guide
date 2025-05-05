@@ -32,9 +32,6 @@ Objectives:
 
 */
 
-// Noun extraction 
-    // Program/Game, User, Score, Keypress 
-
 namespace TheLongGame
 {
     internal class Program
@@ -42,10 +39,11 @@ namespace TheLongGame
         public static void Main(string[] args)
 
         {
-
+                Game game = new Game();
             try
             {
-            
+
+                game.StartGame();
             }
             catch (Exception ex)
             {
