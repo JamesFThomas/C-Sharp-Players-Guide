@@ -36,36 +36,55 @@ Objectives:
 
 - Tell the user what type of potion they currently have and what ingredients choices are available. 
 
-- Allow them to enter aan ingredient choice. Use a pattern to turn the user's choice into a ingredient. 
+- Allow them to enter an ingredient choice. Use a pattern to turn the user's choice into a ingredient. 
 
 - Change the current potion type according to the rules above using a pattern. 
 
 - Allow them to choose whether to complete the potion or continue before adding an ingredient. 
-    --> If the user s choices to complete the potion end the program.  
+    --> If the user chooses to complete the potion end the program.  
 
 - When the usr creates a ruined potion, tell them and start over with water
  
  
 */
 
-
-
-
 namespace PotionMastersOfPattern
 {
     internal class Program
     {
         public static void Main(string[] args)
-
         {
-            Console.WriteLine("Working");
+            User user = new User();
+            Potion potion = new Potion();
+            bool isCreating = true;
 
+            while (isCreating)
+            {
+                var ingredient = user.ChoseIngredient();
+                var shouldAddOrEnd = user.WantsToAddIngredient();
+
+                if (!shouldAddOrEnd)
+                {
+                    isCreating = false;
+                }
+                else // Only proceed if the user wants to add an ingredient
+                {
+                    potion.AddIngredient(ingredient);
+
+                    if (potion._Type == PotionType.Ruined)
+                    {
+                        Console.WriteLine("You ruined the potion and must start over!");
+                        potion = new Potion(); 
+                        continue; 
+                    }
+
+                    Console.WriteLine($"You've created a {potion._Type}");
+                }
+            }
+
+            Console.WriteLine($"Your final potion is {potion.TypeToString()}");
         }
-    
     }
-
-
-
 }
 
 
