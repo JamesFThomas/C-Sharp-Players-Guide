@@ -14,10 +14,11 @@ namespace CharberryTrees
         public event Action? TreeRipened;
         public void MaybeGrow()
         {
-            if (_random.NextDouble() < 0.00000001 && !Ripe)
+            if (_random.NextDouble() < 0.0000001 && !Ripe)
             {
                 Ripe = true;
                 TreeRipened?.Invoke();
+                return;
             }
 
         }
