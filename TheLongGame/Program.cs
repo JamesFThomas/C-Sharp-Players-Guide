@@ -3,7 +3,7 @@
 Title: The Long Game
 
 Story: 
-The island of lo has a long running tradition tat was destroyed when the Uncoded one arrived. 
+The island of lo has a long running tradition that was destroyed when the Uncoded one arrived. 
 The island inhabitants would compete over a long period of time to see who could press the most keys on a keyboard.
 The Uncoded ones arrival destroyed the inhabitants ability to ue the Medallion of Files, and these historic competitions spanning days, weeks, and months has become impossible. 
 As a True Programmer, you can use the Medallion of Files to bring back these long time-running games to the island.
@@ -32,3 +32,28 @@ Objectives:
 
 */
 
+// Noun extraction 
+    // Program/Game, User, Score, Keypress 
+
+namespace TheLongGame
+{
+    internal class Program
+    {
+        public static void Main(string[] args)
+
+        {
+
+            try
+            {
+            
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+            }
+
+        }
+    }
+
+
+}
