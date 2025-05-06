@@ -41,9 +41,82 @@ Objectives:
     =>
 
 - Answer this question: Of these three approaches which is you personal favorite and why? 
-    =>
+    => I think that I like the query method syntax the most because it is the cleanest and it compartmentalizes everything in each method 
 
  
-*/ 
+*/
 
 
+
+int[] nums = [15, 1, 12, 9, 2, 8, 13, 3, 7, 6, 4, 14, 5, 11, 0];
+
+IEnumerable<int> pro = DoneWithProceduralCode(nums);
+
+IEnumerable<int> keyword = DoneWithKeywordExpressions(nums);
+
+IEnumerable<int> meth = DoneWithMethodExpressions(nums);
+
+var proList = pro.ToList();
+
+var keyList = keyword.ToList();
+
+var methList = meth.ToList();
+
+for (int i = 0; i < pro.Count(); i++)
+{
+
+    Console.WriteLine(proList[i]);
+
+    Console.WriteLine(keyList[i]);
+
+    Console.WriteLine(methList[i]);;
+}
+
+
+
+
+static IEnumerable<int> DoneWithProceduralCode(int[] numbers)
+{
+    
+    List<int> result = new List<int>(); 
+
+    
+    foreach (int number in numbers) 
+    {
+        if (number % 2 == 0) 
+            result.Add(number);
+    }
+
+    
+    result.Sort(); 
+
+    
+    for (int i = 0; i < result.Count; i++)
+    {
+        result[i] *= 2; 
+    }
+
+    return result;
+}
+
+static IEnumerable<int> DoneWithKeywordExpressions(int[] numbers)
+{
+
+
+    IEnumerable<int> result = from num in numbers
+                              where num % 2 == 0 
+                              orderby num ascending 
+                              select num * 2; 
+
+    return result;
+}
+
+static IEnumerable<int> DoneWithMethodExpressions(int[] numbers)
+{ 
+    IEnumerable<int> result = numbers
+                                .Where(num => num % 2 == 0)
+                                .OrderBy(num => num)
+                               .Select(num => num * 2);
+
+    return result;
+}
