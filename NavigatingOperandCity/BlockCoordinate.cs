@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,10 +20,10 @@ Help them in this quest by adding a get-only indexer to the BlockCoordinate clas
 Objectives:
 
 - Add a get-only indexer to the BlockCoordinate to access items by an index: 
-    --> index[0] is the row and index[1 is the column]
+    --> index[0] is the row and index[1] is the column.
 
 - Answer this question: Does an indexer provide many benefits over just referring to th Row and Column properties in this case? Explain your thoughts? 
-    => 
+    => In this general case I fail to see the advantage of writing that much extra code to achieve the indexer functionality.  
  
 */
 
@@ -57,6 +58,21 @@ namespace NavigatingOperandCity
             }
 
             return new BlockCoordinate(a.Row + offset.RowOffset, a.Column + offset.ColumnOffset);
+        }
+
+        public int this[int index]
+        {
+            get
+            {
+                if (index == 0)
+                {
+                    return Row;
+                }
+                else 
+                { 
+                    return Column;
+                }
+            }
         }
 
     }

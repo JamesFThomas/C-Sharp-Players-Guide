@@ -49,6 +49,9 @@ namespace NavigatingOperandCity
 
             BlockCoordinate coordinate2 = new BlockCoordinate(3, 8);
 
+            BlockCoordinate coordinate3 = new BlockCoordinate(5,3);
+
+
             BlockOffset offset = new BlockOffset(3,4); // east
 
             Direction direction = Direction.north;
@@ -60,6 +63,8 @@ namespace NavigatingOperandCity
             Console.WriteLine($" Plus Offset coordinate: ({e1.Row},{e1.Column})"); // (4,5)
 
             Console.WriteLine($" Plus Direction coordinate: ({e2.Row},{e2.Column})"); // (2,8)
+
+            Console.WriteLine($"Indexed coordinate: ({coordinate3[0]},{coordinate3[1]})");
         }
        
 
