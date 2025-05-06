@@ -35,4 +35,33 @@ That is if we started at (4,3) and had an offset of (2,0) we should end up at (6
 
 
  
-*/ 
+*/
+
+namespace NavigatingOperandCity
+{
+    public class Program
+    {
+
+        public static void Main(string[] args)
+        {
+
+            BlockCoordinate coordinate = new BlockCoordinate(1,1);
+
+            BlockCoordinate coordinate2 = new BlockCoordinate(3, 8);
+
+            BlockOffset offset = new BlockOffset(3,4); // east
+
+            Direction direction = Direction.north;
+
+            BlockCoordinate e1 = coordinate + offset;
+
+            BlockCoordinate e2 = coordinate2 + direction;
+
+            Console.WriteLine($" Plus Offset coordinate: ({e1.Row},{e1.Column})"); // (4,5)
+
+            Console.WriteLine($" Plus Direction coordinate: ({e2.Row},{e2.Column})"); // (2,8)
+        }
+       
+
+    }
+}
