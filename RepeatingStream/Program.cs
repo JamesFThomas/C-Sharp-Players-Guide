@@ -30,6 +30,67 @@ Objectives:
         ==> If they match, tell the user that they correctly identified the repeat.
         ==> If they don't, indicate that they got it wrong  
 
-- Use lock statements to ensure that they only thread accesses the shared data at a time.  
+- Use lock statements to ensure that only one thread accesses the shared data at a time.   
  
 */
+
+using System;
+
+namespace RepeatingStream
+{
+    internal class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("The Repeating Stream is working");
+            RecentNumbers numbers = new RecentNumbers();
+            Thread thread1 = new Thread(()=> GenerateNumbers(numbers));
+            Thread thread2 = new Thread(()=> KeystrokeRespond(numbers));
+            thread1.Start();
+            thread2.Start();
+        }
+
+
+        public static void GenerateNumbers(RecentNumbers numbers)
+        { 
+            Random random = new Random();
+
+            while (true)
+            {
+                int randomNum = random.Next(10);
+
+                lock (numbers)
+                {
+                    numbers.AddNumber(randomNum);
+                }
+
+                Console.WriteLine(randomNum);
+
+                Thread.Sleep(1000); // after 1 second - the loop will run again repeatedly 
+            }
+
+        }
+
+        public static void KeystrokeRespond(RecentNumbers numbers)
+        {
+            while (true) // will continually run detecting any keystrokes
+            {
+                ConsoleKeyInfo keypress = Console.ReadKey(intercept: true); // Detect all keystrokes
+
+
+                lock (numbers)
+                {
+                    if (numbers.CurrentNumber == numbers.PreviousNumber) // Check if the last two numbers are the same
+                    {
+                        Console.WriteLine("You correctly identified the repeat, Great eye!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("These are not the numbers you seek!");
+                    }
+                }
+            }
+        }
+    }
+
+}
