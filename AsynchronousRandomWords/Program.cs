@@ -33,35 +33,6 @@ Objectives:
  
  */
 
-namespace AsynchronousRandomWords
-{
-    internal class Program
-    {
-
-        public void Main(string[] args)
-        { 
-        
-        }
-
-        public int RandomRecreate(string word)
-        {
-            int attempts = 0;
-
-            return attempts;
-        }
-
-        public Task<int> RandomlyRecreatedAsync(string word)
-        {
-             return Task.Run(() => RandomRecreate(word));
-        }
-
-
-    }
-
-
-}
-
-
 /*
 
 Challenge #2:
@@ -84,3 +55,58 @@ Objectives:
  
  
 */
+
+using System;
+using System.Text;
+
+namespace AsynchronousRandomWords
+{
+    internal class Program
+    {
+        public static async Task Main(string[] args)
+        {
+            Program program = new Program();
+            int attempts = await program.RandomlyRecreatedAsync("hello");
+            Console.WriteLine($"Attempts to recreate 'hello': {attempts}");
+        }
+
+        public int RandomRecreate(string word, int attempts = 0)
+        {
+
+
+            Random random = new Random();
+            string randomString;
+
+            while (true)
+            {
+                randomString = "";
+
+                for (int i = 0; i < word.Length; i++)
+                {
+
+                    randomString += (char)('a' + random.Next(26)); ;
+                }
+
+
+                if (randomString.ToString() == word)
+                {
+                    break;
+                }
+
+                attempts++;
+
+            }
+
+            return attempts;
+        }
+
+        public Task<int> RandomlyRecreatedAsync(string word)
+        {
+            return Task.Run(() => RandomRecreate(word));
+        }
+    }
+
+
+}
+
+
