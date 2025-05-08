@@ -66,8 +66,14 @@ namespace AsynchronousRandomWords
         public static async Task Main(string[] args)
         {
             Program program = new Program();
+            DateTime started = DateTime.Now;
             int attempts = await program.RandomlyRecreatedAsync("hello");
+            DateTime ended = DateTime.Now;
+
+            TimeSpan timeSpan = ended - started;
+
             Console.WriteLine($"Attempts to recreate 'hello': {attempts}");
+            Console.WriteLine($"The process took {timeSpan.Seconds} secs");
         }
 
         public int RandomRecreate(string word, int attempts = 0)
