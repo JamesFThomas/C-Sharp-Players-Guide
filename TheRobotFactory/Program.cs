@@ -44,7 +44,7 @@ Objectives:
 
 - Ask the user if they want to name the robot and if they do collect it and store it in the name property. 
 
-- Ask them if they wan to provide a size for the robot, and if they do collect a width and height value from the user and stor the Width and Height properties 
+- Ask them if they wan to provide a size for the robot, and if they do collect a width and height value from the user and store the Width and Height properties 
 
 - Ask if they want to choose a color for the robot. If so store their choice ina Color property.
 
@@ -60,6 +60,8 @@ foreach ( KeyValuePair<string, object>  property in (IDictionary<string, object>
  */
 
 
+using System.Dynamic;
+
 namespace TheRobotFactory
 {
     internal class Program
@@ -68,8 +70,142 @@ namespace TheRobotFactory
         public static void Main(string[] args)
         {
 
-            Console.WriteLine(" The Robot Factory Working");
+            dynamic robot = new ExpandoObject();
+            
+            robot.ID = 1;
 
+            while (true)
+            {
+
+                Console.WriteLine($"You are producing Robot #{robot.ID}.");
+
+                CollectName(robot);
+
+                CollectSize(robot);
+
+                CollectColor(robot);
+
+                DisplayRobotData(robot);
+
+                robot.ID++;
+
+            }
+        }
+
+        public static void CollectName( dynamic robot)
+        {
+            string? input;
+
+            Console.Write("Do you want to give this robot a name? ");
+
+            input = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                Console.WriteLine("\nPlease enter a valid string");
+                CollectName(robot);
+            }
+
+            if (input?.ToLower() == "yes") //only set name if answer is yes
+            {
+                Console.Write("What is its name? ");
+                input = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("\nPlease enter a valid name");
+                    CollectName(robot); 
+                }
+
+                robot.Name = input;
+            }
+
+
+        }
+
+
+        public static void CollectSize( dynamic robot )
+        {
+            string? input;
+
+            Console.Write("Does this robot need to be specific size? ");
+
+            input = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                Console.WriteLine("\nPlease enter a valid string");
+                CollectSize(robot);
+            }
+
+            if (input?.ToLower() == "yes")
+            {
+                Console.Write("What is its height? ");
+                input = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(input) && Int32.TryParse(input, out int height))
+                {
+                    Console.WriteLine("\nPlease enter a valid height");
+                    input = Console.ReadLine();
+                }
+
+                robot.Height = input;
+
+                Console.Write("What is its width? ");
+                input = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(input) && Int32.TryParse(input, out int width))
+                {
+                    Console.WriteLine("\nPlease enter a valid height");
+                    input = Console.ReadLine();
+                }
+
+
+                robot.Width = input;
+
+            }
+
+        }
+
+
+        public static void CollectColor(dynamic robot)
+        {
+            string? input;
+
+            Console.Write("Do you want to give this robot a color? ");
+
+            input = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                Console.WriteLine("\nPlease enter a valid string");
+                CollectColor(robot);
+            }
+
+            if (input?.ToLower() == "yes") //only set name if answer is yes
+            {
+                Console.Write("What color is the robot? ");
+                input = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("\nPlease enter a valid name");
+                    CollectName(robot);
+                }
+
+                robot.Color = input;
+            }
+
+
+        }
+
+
+        public static void DisplayRobotData(dynamic robot)
+        {
+            foreach (KeyValuePair<string, object> property in (IDictionary<string, object>)robot)
+            {
+                Console.WriteLine($"{property.Key}: {property.Value}\n");
+}
         }
 
 
