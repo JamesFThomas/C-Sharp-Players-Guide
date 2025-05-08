@@ -33,31 +33,9 @@ Objectives:
  
  */
 
-/*
-
-Challenge #2:
-
-Title: Many Random Words
-
-Story:
-
-Awat impressed with what you did in the last challenge but thinks it could be better. 
-"Why not generate "hello" and "world" in parallel!?" he asks. 
-"You do that, and I'll let you take this medallion off of me."
-
-
-Objectives: 
-
-- Modify your program from the previous challenge to allow the main method to keep waiting for the user to enter more words. 
-    --> For every new word entered, create and run a task to compute the attempt count and the time elapsed and display the result, but then let that run asynchronously while you wait for the next word. 
-    --> You can generate many words in parallel this way. 
-    --> Hint: Moving the elapsed time and output logic to another async method may make this easier. 
- 
- 
-*/
-
 using System;
 using System.Text;
+
 
 namespace AsynchronousRandomWords
 {
@@ -67,13 +45,39 @@ namespace AsynchronousRandomWords
         {
             Program program = new Program();
             DateTime started = DateTime.Now;
-            int attempts = await program.RandomlyRecreatedAsync("hello");
+
+            // method to collect word
+            string word = program.CollectWord();
+
+            int attempts = await program.RandomlyRecreatedAsync(word);
             DateTime ended = DateTime.Now;
 
             TimeSpan timeSpan = ended - started;
 
-            Console.WriteLine($"Attempts to recreate 'hello': {attempts}");
+            Console.WriteLine($"Attempts to recreate '{word}': {attempts}");
             Console.WriteLine($"The process took {timeSpan.Seconds} secs");
+        }
+
+        public string CollectWord()
+        {
+            string prompt = "Enter a word for the random generator to match";
+            string validInput = "Please input a valid string value under 5 characters long";
+
+            string? input;
+
+            Console.WriteLine(prompt);
+            input = Console.ReadLine();
+
+            if (String.IsNullOrWhiteSpace(input) || input.Length > 5)
+            {
+                Console.WriteLine(validInput);
+                return CollectWord();
+            }
+            else
+            {
+
+                return input;
+            }
         }
 
         public int RandomRecreate(string word, int attempts = 0)
