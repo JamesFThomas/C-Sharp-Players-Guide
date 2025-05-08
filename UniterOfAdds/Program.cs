@@ -25,7 +25,7 @@ Objectives:
 
 - Add code to your main method to call the new method with two ints, two doubles, two strings, and a DateTime and TimeSpan, and display the results
 
-- Answer this question:What downside do you see to using dynamic type here? 
+- Answer this question:What down side do you see to using dynamic type here? 
     =>
 
  */
@@ -41,8 +41,34 @@ namespace UniterOfAdds
 
             Console.WriteLine("Uniter of Adds Working");
 
+            int iA = 2;
+            int iB = 4;
+
+            double dA = 5;
+            double dB = 6;
+
+            string sA = "hello ";
+            string sB = "world";
+
+            DateTime date = DateTime.Now;
+            TimeSpan timespan = new TimeSpan(36, 0, 0, 0);
+
+            Console.WriteLine($"integers added {dynamicallyAddTypes(iA, iB)}");
+
+            Console.WriteLine($"doubles added {dynamicallyAddTypes(dA, dB)}");
+
+            Console.WriteLine($"strings added {dynamicallyAddTypes(sA, sB)}");
+
+            Console.WriteLine($"time added {dynamicallyAddTypes(date, timespan)}");
+
+
         }
 
+        public static dynamic dynamicallyAddTypes(dynamic a, dynamic b)
+        { 
+            var result = a + b;
+            return result;
+        }
     
     
     }
