@@ -24,5 +24,12 @@ Objectives:
 - Add the right references between projects so that the main program can use the following code.  
 
 string name = ColorConsole.Prompt("What is your name")
-ColorConsole.WriteLine("Hello " + nae, ConsoleColor.Green);
+ColorConsole.WriteLine("Hello " + name, ConsoleColor.Green);
 */
+
+using ConsoleMethods;
+
+string name = ColorConsole.Prompt("What is your name? ");
+ColorConsole.WriteLine("Hello " + name, ConsoleColor.Green);
+
+
