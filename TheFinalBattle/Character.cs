@@ -17,13 +17,12 @@ namespace TheFinalBattle
         public void Action()
         {
             // this will be updated to display action options
-              
             Nothing();
         }
 
         public void Nothing()
         {
-            Console.WriteLine($"{Name} did nothing\n");
+            Console.WriteLine($"{Name} did nothing");
         }
     }
 }
