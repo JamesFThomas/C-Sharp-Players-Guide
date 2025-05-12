@@ -26,9 +26,9 @@ Objectives:
     --> A battle needs to run a series of rounds where each character in each party ( heroes first ) can take a turn. 
 
 - Before a Character takes their turn, the game should report to the user who's turn it is.
-    --> For example: "It' SKELETON's turn"
+    --> For example: "It's SKELETON's turn"
 
-- Th only action the game needs to support at the moment is doing nothing.
+- The only action the game needs to support at the moment is doing nothing.
     --> This action is done by displaying text about doing nothing, resting, or skipping a turn in the console window. 
     --> For example: "SKELETON did NOTHING"
 
@@ -56,13 +56,60 @@ namespace TheFinalBattle
 {
     internal class Game
     {
+        public List<Character> Heroes { get; set; } = new List<Character>();
+        public List<Character> Monsters { get; set; } = new List<Character>();
 
-        public Game() { }
+        public Dictionary<string, List<Character>> Parties;
 
+        public Game()
+        {
+            Parties = new Dictionary<string, List<Character>>()
+                {
+                    { "heroes", Heroes },
+                    { "monsters", Monsters }
+                };
+        }
 
         public void Start()
         {
             Console.WriteLine("The Finale Battle is working!");
+
+            Parties["heroes"].Add(new Character("skeleton-h"));
+            Parties["monsters"].Add(new Character("skeleton-m"));
+
+            Battle();
+        }
+
+        public void HeroesTurns()
+        {
+            foreach (var hero in Heroes)
+            {
+                WhosTurn(hero);
+                hero.Action();
+                Thread.Sleep(500);
+            }
+        }
+
+        public void MonstersTurns()
+        {
+            foreach (var monster in Monsters)
+            {
+                WhosTurn(monster);
+                monster.Action();
+                Thread.Sleep(500);
+            }
+        }
+
+        public void WhosTurn(Character character)
+        {
+            string prompt = $"It' {character.Name}'s turn";
+            Console.WriteLine(prompt);
+        }
+
+        public void Battle() 
+        {
+            HeroesTurns();
+            MonstersTurns();
         }
     }
 }
