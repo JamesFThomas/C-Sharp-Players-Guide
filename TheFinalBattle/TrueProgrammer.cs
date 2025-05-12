@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace TheFinalBattle
 {
-    internal class Character : ICharacter
+    internal class TrueProgrammer : ICharacter
     {
         public string Name { get; set; }
-        public Character(string name)
+
+        public TrueProgrammer(string name)
         {
             Name = name;
         }
 
         public void Action()
         {
-            // this will be updated to display action options
             Nothing();
         }
 
-        public void Nothing()
+        private void Nothing()
         {
-            Console.WriteLine($"{Name} did nothing");
+            Console.WriteLine($"{Name} did nothing"); ;
         }
     }
 }

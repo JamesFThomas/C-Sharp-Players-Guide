@@ -39,18 +39,20 @@ Objectives:
 
 */
 
+
+
 namespace TheFinalBattle
 {
     internal class Game
     {
-        public List<Character> Heroes { get; set; } = new List<Character>();
-        public List<Character> Monsters { get; set; } = new List<Character>();
+        public List<ICharacter> Heroes { get; set; } = new List<ICharacter>();
+        public List<ICharacter> Monsters { get; set; } = new List<ICharacter>();
 
-        public Dictionary<string, List<Character>> Parties;
+        public Dictionary<string, List<ICharacter>> Parties;
 
         public Game()
         {
-            Parties = new Dictionary<string, List<Character>>()
+            Parties = new Dictionary<string, List<ICharacter>>()
                 {
                     { "heroes", Heroes },
                     { "monsters", Monsters }
@@ -72,7 +74,7 @@ namespace TheFinalBattle
         {
             string heroName = CollectHeroName();
 
-            Character hero = new Character(heroName);
+            TrueProgrammer hero = new TrueProgrammer(heroName);
 
             AddToHeroesParty(hero);
             
@@ -99,12 +101,12 @@ namespace TheFinalBattle
 
         }
 
-        public void AddToHeroesParty(Character character)
+        public void AddToHeroesParty(ICharacter character)
         {
             Heroes.Add(character);
         }
 
-        public void AddToMonstersParty(Character character)
+        public void AddToMonstersParty(ICharacter character)
         {
             Monsters.Add(character);
         }
@@ -129,7 +131,7 @@ namespace TheFinalBattle
             }
         }
 
-        public void WhosTurn(Character character)
+        public void WhosTurn(ICharacter character)
         {
             string prompt = $"\nIt's {character.Name}'s turn";
             Console.WriteLine(prompt);
@@ -142,3 +144,55 @@ namespace TheFinalBattle
         }
     }
 }
+
+
+
+                                                        /******************************************************* COMPLETED *******************************************************/
+
+/*
+
+Title: Building Character 
+
+Story: 
+
+This challenge is deceptively complex: it will require building out enough of the game's foundation to get two characters taking turns in a loop.
+
+Sure, they won't be doing anything, but that's still a big step forward!
+
+Objectives: 
+
+- The game needs to be able to represent characters with a name and be able to take a turn.
+
+- The game should be able to have a skeleton character with the name SKELETON
+
+- The game should be able to represent a party with a collection of characters.
+
+- The game should be able to run a battle composed of two parties - heroes and monsters.
+    --> A battle needs to run a series of rounds where each character in each party ( heroes first ) can take a turn. 
+
+- Before a Character takes their turn, the game should report to the user who's turn it is.
+    --> For example: "It's SKELETON's turn"
+
+- The only action the game needs to support at the moment is doing nothing.
+    --> This action is done by displaying text about doing nothing, resting, or skipping a turn in the console window. 
+    --> For example: "SKELETON did NOTHING"
+
+- The game must run a battle with a single skeleton in both the hero and monster party. 
+    --> At this point the two skeletons should do nothing repeatedly. 
+    --> the game could look like below: 
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+"It' SKELETON's turn"
+"SKELETON did NOTHING"
+
+"It' SKELETON's turn"
+"SKELETON did NOTHING"
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+- Optional: Put a blank line between each characters turn to differentiate one turn from another
+
+- Optional: At this point the game should run automatically. Considering adding Thread.Sleep(500); to slow the game down enough to allow the user to see what is happening over time. 
+
+*/
