@@ -24,7 +24,8 @@ namespace TheFinalBattle
         public static void Main(string[] args)
         {
 
-            Console.WriteLine("The Finale Battle is working!");
+            Game game = new Game();
+            game.Start();
         
         }
         
