@@ -144,7 +144,7 @@ namespace TheFinalBattle.Classes
             foreach (var hero in Heroes)
             {
                 WhosTurn(hero);
-                hero.Action();
+                hero.PerformAction("donothing");
                 Thread.Sleep(500);
             }
         }
@@ -154,7 +154,7 @@ namespace TheFinalBattle.Classes
             foreach (var monster in Monsters)
             {
                 WhosTurn(monster);
-                monster.Action();
+                monster.PerformAction("donothing");
                 Thread.Sleep(500);
             }
         }
