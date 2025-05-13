@@ -16,6 +16,8 @@ Only a True Programmer will be able to survive the encounter, defeat the Uncoded
  
 */
 
+using TheFinalBattle.Classes;
+
 namespace TheFinalBattle
 {
     internal class Program
