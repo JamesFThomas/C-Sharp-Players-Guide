@@ -84,7 +84,7 @@ namespace TheFinalBattle.Classes
 
             AddToMonstersParty(new Skeleton("Skelly"));
 
-            Battle();
+            Battle(new Computer("computer1"), new Computer("computer2"));
         }
 
         public void GameExplanation()
@@ -139,22 +139,22 @@ namespace TheFinalBattle.Classes
             Monsters.Add(character);
         }
 
-        public void HeroesTurns()
+        public void HeroesTurns(IPlayer player)
         {
             foreach (var hero in Heroes)
             {
                 WhosTurn(hero);
-                hero.PerformAction("donothing");
+                player.PickAction(hero);
                 Thread.Sleep(500);
             }
         }
 
-        public void MonstersTurns()
+        public void MonstersTurns(IPlayer player)
         {
             foreach (var monster in Monsters)
             {
                 WhosTurn(monster);
-                monster.PerformAction("donothing");
+                player.PickAction(monster);
                 Thread.Sleep(500);
             }
         }
@@ -165,10 +165,10 @@ namespace TheFinalBattle.Classes
             Console.WriteLine(prompt);
         }
 
-        public void Battle() 
+        public void Battle(IPlayer player1, IPlayer player2) 
         {
-            HeroesTurns();
-            MonstersTurns();
+            HeroesTurns(player1);
+            MonstersTurns(player2);
         }
     }
 }
