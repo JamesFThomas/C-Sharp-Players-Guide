@@ -15,6 +15,7 @@ namespace TheFinalBattle.Classes
         {
             Name = name;
             Actions = new Dictionary<string, IAction>();
+            AddAction("donothing", new DoNothing());
         }
 
         public void AddAction(string actionName, IAction action)

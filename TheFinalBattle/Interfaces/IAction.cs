@@ -9,6 +9,6 @@ namespace TheFinalBattle.Interfaces
 {
     interface IAction
     {
-        void Execute(Character character);
+        void Execute(ICharacter character);
     }
 }

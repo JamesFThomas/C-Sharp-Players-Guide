@@ -82,7 +82,7 @@ namespace TheFinalBattle.Classes
 
             CreateHero();
 
-            AddToMonstersParty(new Character("skeleton-m"));
+            AddToMonstersParty(new Skeleton("Skelly"));
 
             Battle();
         }

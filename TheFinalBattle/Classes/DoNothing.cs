@@ -9,10 +9,12 @@ namespace TheFinalBattle.Classes
 {
     class DoNothing : IAction
     {
-        public void Execute(Character character)
+        public void Execute(ICharacter character)
         {
             var name = character.Name;
+
             Console.WriteLine($"{name} did NOTHING");
+
         }
     }
 }
