@@ -22,41 +22,30 @@ Objectives:
 
 
 
-
-// randomly set manticore range with Random class 
-Random range = new Random();
+Random range = new Random(); // randomly set manticore range with Random class 
 
 int manticoreRange = range.Next(0, 101); // random number between 0 and 100
 
-// Single player starts the game
-DefendTheCity(manticoreRange);
 
-/*
+DefendTheCity(manticoreRange); // Single player starts the game
 
-//method no longer used in one player upgrade using random class  
 
-int SetManticoreRange()
+void DisplayGameExplanation()
 {
-    int userInput = 0;
-    Console.Write("Player 1, how far away from the city do you want to station the Manticore?");
-    userInput = Convert.ToInt32(Console.ReadLine());
+    Console.ForegroundColor = ConsoleColor.Magenta; // narrative items in magenta
+    Console.WriteLine(@"
+            Welcome to the Hunting the Manticore!
+            You are defending the city of Consolas from the Uncoded Ones approaching airship.
+            Your goal is to guess the range of the airship ( between 0 - 100 ) so your magic cannon can make a hit.
+            You will be given data about each shot, allowing you to adjust your range and hopefully destroy the airship. 
+            Each round the airship survives the city receives 1 damage until destroyed!
+            The battle is up to you!
+            ");
 
-    // check if input is in range 
-    while (userInput < 0 || userInput > 100)
-    {
-        Console.WriteLine("The range mus be between 0 and 100.");
-        userInput = Convert.ToInt32(Console.ReadLine());
-    }
-
-    // check if input is a number
-    Console.Clear();
-    return userInput;
-
+    Console.ResetColor();
 }
 
- */
 
-// display game status
 
 void DisplayGameStatus(int gameRound, int cityHealth, int manticoreHealth)
 {
@@ -64,7 +53,6 @@ void DisplayGameStatus(int gameRound, int cityHealth, int manticoreHealth)
     Console.WriteLine(statusText);
 }
 
-// calculate cannon damage
 int CalculateCannonDamage(int gameRound, int cannonDamage)
 {
     if (gameRound % 15 == 0)
@@ -82,14 +70,12 @@ int CalculateCannonDamage(int gameRound, int cannonDamage)
     return cannonDamage;
 }
 
-// display damage for the round
 void DisplayExpectedDamage(int cannonDamage)
 {
     string damageText = $"The cannon is expected to deal {cannonDamage} damage this round.";
     Console.WriteLine(damageText);
 }
 
-// Updated method to remove the null check for an int type, as it is unnecessary and causes CS0472.
 int SetCannonRange(int cannonRange)
 {
     string? userInput = null;
@@ -100,7 +86,6 @@ int SetCannonRange(int cannonRange)
     Console.Write(rangeText);
     userInput = Console.ReadLine();
 
-    // Check if the input is a valid integer
     if( String.IsNullOrWhiteSpace(userInput) )
     {
         Console.WriteLine(invalidInputText);
@@ -126,7 +111,6 @@ int SetCannonRange(int cannonRange)
     string shotResult;
     string shotText;
 
-    // Calculate manticore health - use cannon range, manticore range, and cannon damage
     if (cannonRange < manticoreRange)
     {
         shotResult = "FELL SHORT OF";
@@ -161,22 +145,26 @@ int SetCannonRange(int cannonRange)
     return (manticoreHealth, cityHealth); 
 }
 
-// method to calculate health 
 void GameEndDisplay(int manticoreHealth, int cityHealth)
 {
 
-    if (manticoreHealth == 0)
+    if (manticoreHealth <= 0)
     {
-        Console.WriteLine("The Manticore has been destroyed! The city of Consolas is safe!");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.BackgroundColor = ConsoleColor.Blue;
+        Console.WriteLine("\nThe Manticore has been destroyed! The city of Consolas is safe!");
+        Console.ResetColor();
     }
 
-    if (cityHealth == 0)
+    if (cityHealth <= 0)
     {
-        Console.WriteLine("The city of Consolas has been destroyed! The Manticore is victorious!");
+        Console.ForegroundColor= ConsoleColor.DarkRed;
+        Console.BackgroundColor = ConsoleColor.White;
+        Console.WriteLine("\nThe city of Consolas has been destroyed! The Manticore is victorious!");
+        Console.ResetColor();
     }
 }
 
-// create method to run player 2 turns
 void DefendTheCity(int manticoreRange)
 {
 
@@ -190,7 +178,7 @@ void DefendTheCity(int manticoreRange)
     cannonRange = 0;
 
 
-
+    DisplayGameExplanation();
 
     while (!isGameOver)
     {
