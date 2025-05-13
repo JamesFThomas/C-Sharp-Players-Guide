@@ -9,49 +9,48 @@ using static System.Formats.Asn1.AsnWriter;
 
 /*
 
-Title: Actions and Players 
+Title: Attacks 
 
 
 Story: 
 
-The previous two challenges have had the characters taking turns directly. 
+In this challenge, we will extend our game by giving characters attacks and allowing players to pick an attack instead of doing nothing.
 
-But instead of the characters deciding actions, the player controlling each character's team should pick teh action for each character. 
-
-Eventually, there will be several actions types to choose from ( do nothing, attack, use item, etc. ).
-
-There will also be multiple player types ( computer/AI and human input from the console window ).
-
-A player is responsible for picking an action for each character in their party. 
-
-The game should ask the player to choose the action rather than asking the characters to act for themselves. 
-
-For now, the only action type will be a do-nothing action, and the only player type will be a computer player.
-
-This challenge does not demand that you add new externally visible capabilities but make any needed changes to allow the game to work as described above, with players choosing actions instead of characters. 
-
-If you are confident your design already supports this, claim the XP now an move on. 
-
+We won't address tracking or dealing damage yet.
 
 
 Objectives: 
 
-- The game needs to be able to represent action types. Each action should be able to run when asked. 
+- The game needs to be able to represent specific types of attacks. 
+Attacks will have a name and other capabilities too. 
 
-- The game needs to include a do nothing action, which displays the same text as in previous challenges
-    --> Example: "SKELETON did NOTHING"
+- Each character has a standard attack, but this varies from character to character.
+The true Programmer's ( the players character ) attack's is called PUNCH. The Skeleton's attack is called BONE CRUNCH.
 
-- The game needs to be able to represent different player types. A player needs the ability to pick an action for a character they control, given the battle's current state.
+- The program must be capable of representing an attack action, our second action type. 
+An attack action must represent which attacks is being used and the target of the attack. When this action runs, it should state the attacker, the attack, and the target. 
+Example: "TOG used PUNCH on SKELETON"
 
-- The game needs a sole player type: a computer player ( a simple AI of sorts ). For now, the computer player will simply pick the one available option: do nothing ( and optionally wait a bit first with Thread.Sleep ).
+- Our computer player should pick an attack action rather than do nothing action. 
+The attack action can be simple for now: always use the character's standard attack and always target the other party's first character.  
+If you want ot choose a random target or some other logic, you can.
 
-- The game must know which player controls each party to ask the correct player to pick each character's action. 
-    --> Set up the game to ask the player to select an action for each of their characters and then run the chosen action.
+- The game should now run more like below:
+------------------------------------------------------------------------------------------------------------------------------------------
 
-- Put a simple computer player in charge of each party.
-    
+"It's TOG's turn..."
+"TOG used PUNCH on SKELETON"
 
-- Note: To somebody watching, the end result of this challenge may look identical to before this challenge
+"It's SKELETON's turn..."
+"SKELETON used BONE CRUNCH on TOG"
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+- Hint: 
+The player will need access to the list of characters that are potential targets. 
+In my case, I passed my Battle object ( which represents the entire battle and gives access to both parties and all their members ) to the player
+I then added methods to Battle where I could give it a character, and it would return the character's party ( GetPartyFor(Character) ) or the opposing party ( GetEnemyPartFor(Character) ).
+
 
 */
 
@@ -178,9 +177,10 @@ namespace TheFinalBattle.Classes
 
 
 
-            /******************************************************* COMPLETED CHALLENGES *******************************************************/
+/******************************************************* COMPLETED CHALLENGES *******************************************************/
 
-/*
+// 1.
+/* 
 
 Title: Building Character 
 
@@ -229,7 +229,7 @@ Objectives:
 */
 
 
-
+// 2.
 /*
 
 Title: The True Programmer 
@@ -262,5 +262,55 @@ Objectives:
 "SKELETON did NOTHING"
 
 ------------------------------------------------------------------------------------------------------------------------------------------
+
+*/
+
+
+// 3.
+/*
+
+Title: Actions and Players 
+
+
+Story: 
+
+The previous two challenges have had the characters taking turns directly. 
+
+But instead of the characters deciding actions, the player controlling each character's team should pick teh action for each character. 
+
+Eventually, there will be several actions types to choose from ( do nothing, attack, use item, etc. ).
+
+There will also be multiple player types ( computer/AI and human input from the console window ).
+
+A player is responsible for picking an action for each character in their party. 
+
+The game should ask the player to choose the action rather than asking the characters to act for themselves. 
+
+For now, the only action type will be a do-nothing action, and the only player type will be a computer player.
+
+This challenge does not demand that you add new externally visible capabilities but make any needed changes to allow the game to work as described above, with players choosing actions instead of characters. 
+
+If you are confident your design already supports this, claim the XP now an move on. 
+
+
+
+Objectives: 
+
+- The game needs to be able to represent action types. Each action should be able to run when asked. 
+
+- The game needs to include a do nothing action, which displays the same text as in previous challenges
+    --> Example: "SKELETON did NOTHING"
+
+- The game needs to be able to represent different player types. A player needs the ability to pick an action for a character they control, given the battle's current state.
+
+- The game needs a sole player type: a computer player ( a simple AI of sorts ). For now, the computer player will simply pick the one available option: do nothing ( and optionally wait a bit first with Thread.Sleep ).
+
+- The game must know which player controls each party to ask the correct player to pick each character's action. 
+    --> Set up the game to ask the player to select an action for each of their characters and then run the chosen action.
+
+- Put a simple computer player in charge of each party.
+    
+
+- Note: To somebody watching, the end result of this challenge may look identical to before this challenge
 
 */
