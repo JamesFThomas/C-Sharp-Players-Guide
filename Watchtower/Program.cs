@@ -2,7 +2,7 @@
  
     Title: Watchtower 
 
-    Cordinate Diagram:       
+    Coordinate Diagram:       
 
                     x < 0      x = 0      x > 0
                    +-------+-------+-------+
@@ -15,7 +15,7 @@
 
     Objectives:
 
-    - Ask the user for an x value and a y value. These are the cordinates of the enemy reltive to the watch tower's location
+    - Ask the user for an x value and a y value. These are the coordinates of the enemy relative to the watch tower's location
 
     - Using the image on the right, if statements, and relational operators, display a message about what direction the enemy is coming from.   
         -- ex: "The enemy is to the northwest!" || "The enemy is here"
