@@ -10,47 +10,52 @@ using static System.Formats.Asn1.AsnWriter;
 
 /*
 
-Title: Attacks 
+Title:  Damage and HP
 
 
 Story: 
 
-In this challenge, we will extend our game by giving characters attacks and allowing players to pick an attack instead of doing nothing.
+Now that our characters are attacking each other it is time for the attacks to matter. 
 
-We won't address tracking or dealing damage yet.
+In this challenge we will enhance the game to give characters hit points (HP).
+
+Attacking should reduce the HP of the target down to 0 but not past it.
+
+Reaching 0 HP means death, which we will deal with in the next challenge. 
 
 
 Objectives: 
 
-- The game needs to be able to represent specific types of attacks. 
-Attacks will have a name and other capabilities too. 
+- Characters should be able to track both their initial/maximum HP and their current HP. The true Programmer should have 25 HP, while skeletons should have 5. 
 
-- Each character has a standard attack, but this varies from character to character.
-The true Programmer's ( the players character ) attack's is called PUNCH. The Skeleton's attack is called BONE CRUNCH.
+- Attacks should be able to produce attack data for a specific use of the attack. 
+For now, this is simply the amount of damage that they will deal this time, though keep in mind that other challenges will add more data to this, including things like the frequency of hitting or missing and damage types.  
 
-- The program must be capable of representing an attack action, our second action type. 
-An attack action must represent which attacks is being used and the target of the attack. When this action runs, it should state the attacker, the attack, and the target. 
-Example: "TOG used PUNCH on SKELETON"
 
-- Our computer player should pick an attack action rather than do nothing action. 
-The attack action can be simple for now: always use the character's standard attack and always target the other party's first character.  
-If you want to choose a random target or some other logic, you can.
+- The PUNCH attack should deal 1 point of damage while the BONE CRUNCH should randomly deal 0 or 1 damage point. 
+HINT: Remember that Random can be used to generate random numbers. random.Next(2) will generate a 0 or 1 equal probability.  
 
-- The game should now run more like below:
+- The attack action should ask the attack to determine how much damage it cause this time and then reduce the target's HP by that amount. 
+A character's HP should not be lowered below 0;
+
+- The attack should report how much damage the attack did and what the target HP is at after the attack. 
+Example: "PUNCH did 1 damage to SKELETON." "SKELETON is now at 4/5 HP"
+
+- When the game runs after the updates of this challenge the output will look similar to below: 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-"It's TOG's turn..."
-"TOG used PUNCH on SKELETON"
+It's TOG's turn...
+TOG used PUNCH on SKELETON.
+PUNCH dealt 1 damage to SKELETON.
+SKELETON is now at 4/5 HP.
 
-"It's SKELETON's turn..."
-"SKELETON used BONE CRUNCH on TOG"
+It's SKELETON's turn...
+SKELETON used BONE CRUNCH on TOG.
+BONE CRUNCH dealt 0 damage to TOG.
+TOG is now at 25/25 HP.
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-- Hint: 
-The player will need access to the list of characters that are potential targets. 
-In my case, I passed my Battle object ( which represents the entire battle and gives access to both parties and all their members ) to the player
-I then added methods to Battle where I could give it a character, and it would return the character's party ( GetPartyFor(Character) ) or the opposing party ( GetEnemyPartFor(Character) ).
 
 
 */
@@ -318,3 +323,51 @@ Objectives:
 */
 
 // 4.
+/*
+
+Title: Attacks 
+
+
+Story: 
+
+In this challenge, we will extend our game by giving characters attacks and allowing players to pick an attack instead of doing nothing.
+
+We won't address tracking or dealing damage yet.
+
+
+Objectives: 
+
+- The game needs to be able to represent specific types of attacks. 
+Attacks will have a name and other capabilities too. 
+
+- Each character has a standard attack, but this varies from character to character.
+The true Programmer's ( the players character ) attack's is called PUNCH. The Skeleton's attack is called BONE CRUNCH.
+
+- The program must be capable of representing an attack action, our second action type. 
+An attack action must represent which attacks is being used and the target of the attack. When this action runs, it should state the attacker, the attack, and the target. 
+Example: "TOG used PUNCH on SKELETON"
+
+- Our computer player should pick an attack action rather than do nothing action. 
+The attack action can be simple for now: always use the character's standard attack and always target the other party's first character.  
+If you want to choose a random target or some other logic, you can.
+
+- The game should now run more like below:
+------------------------------------------------------------------------------------------------------------------------------------------
+
+"It's TOG's turn..."
+"TOG used PUNCH on SKELETON"
+
+"It's SKELETON's turn..."
+"SKELETON used BONE CRUNCH on TOG"
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+- Hint: 
+The player will need access to the list of characters that are potential targets. 
+In my case, I passed my Battle object ( which represents the entire battle and gives access to both parties and all their members ) to the player
+I then added methods to Battle where I could give it a character, and it would return the character's party ( GetPartyFor(Character) ) or the opposing party ( GetEnemyPartFor(Character) ).
+
+
+*/
+
+// 5.
