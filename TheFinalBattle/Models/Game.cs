@@ -34,7 +34,7 @@ Example: "TOG used PUNCH on SKELETON"
 
 - Our computer player should pick an attack action rather than do nothing action. 
 The attack action can be simple for now: always use the character's standard attack and always target the other party's first character.  
-If you want ot choose a random target or some other logic, you can.
+If you want to choose a random target or some other logic, you can.
 
 - The game should now run more like below:
 ------------------------------------------------------------------------------------------------------------------------------------------
@@ -80,9 +80,7 @@ namespace TheFinalBattle.Classes
 
             GameExplanation();
 
-            CreateHero();
-
-            AddToMonstersParty(new Skeleton("Skelly"));
+            CreateHeroAndMonsterParties();
 
             Battle(new Computer("computer1"), new Computer("computer2"));
         }
@@ -98,14 +96,16 @@ namespace TheFinalBattle.Classes
             Console.ResetColor();
         }
 
-        public void CreateHero()
+        public void CreateHeroAndMonsterParties()
         {
             string heroName = CollectHeroName();
 
             TrueProgrammer hero = new TrueProgrammer(heroName);
 
             AddToHeroesParty(hero);
-            
+
+            AddToMonstersParty(new Skeleton("Skelly"));
+
         }
 
         public string CollectHeroName()
@@ -141,6 +141,8 @@ namespace TheFinalBattle.Classes
 
         public void HeroesTurns(IPlayer player)
         {
+            var targets = Monsters;
+
             foreach (var hero in Heroes)
             {
                 WhosTurn(hero);
@@ -151,6 +153,8 @@ namespace TheFinalBattle.Classes
 
         public void MonstersTurns(IPlayer player)
         {
+            var targets = Heroes;
+
             foreach (var monster in Monsters)
             {
                 WhosTurn(monster);
@@ -168,9 +172,11 @@ namespace TheFinalBattle.Classes
         public void Battle(IPlayer player1, IPlayer player2) 
         {
             // give access to both parties for each player
+            // Eventually this method will have to perform multiple rounds in the battle
+
             // The player will need access to the list of characters that are potential targets. 
             // In my case, I passed my Battle object(which represents the entire battle and gives access to both parties and all their members) to the player
-            // I then added methods to Battle where I could give it a character, and it would return the character's party ( GetPartyFor(Character) ) or the opposing party ( GetEnemyPartFor(Character) ).
+            // I then added methods to Battle where I could give it a character, and it would return the character's party ( GetPartyFor(Character) ) or the opposing party ( GetEnemyPartyFor(Character) ).
             HeroesTurns(player1);
             MonstersTurns(player2);
         }

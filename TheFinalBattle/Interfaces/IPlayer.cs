@@ -9,8 +9,6 @@ namespace TheFinalBattle.Interfaces
 {
     interface IPlayer
     {
-        // The game needs to be able to represent different player types.
-        // A player needs the ability to pick an action for a character they control, given the battle's current state.
         string Type { get; set; }
 
         void PickBehavior(Character character);
