@@ -10,8 +10,8 @@ namespace TheFinalBattle.Interfaces
     {
         string Name { get; }
 
-        public void AddAction(string actionName, IAction action);
-        public void PerformAction(string actionName);
+        public void AddBehavior(string behaviorName, IBehavior action );
+        public void PerformBehavior(string actionName);
 
     }
 }

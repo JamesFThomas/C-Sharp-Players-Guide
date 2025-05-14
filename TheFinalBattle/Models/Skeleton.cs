@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TheFinalBattle.Classes;
 using TheFinalBattle.Interfaces;
+using TheFinalBattle.Models;
 
-namespace TheFinalBattle
+namespace TheFinalBattle.Classes
 {
-    internal class TrueProgrammer : Character
+     class Skeleton : Character
     {
-        public TrueProgrammer(string name) : base(name)
+        public Skeleton(string name) : base(name)
         {
-            // add any TrueProgrammer specific actions in constructor 
+            AddBehavior("bonecrunch", new BoneCrunch());
         }
 
+
         // override or add method specific to class here when ready 
+
     }
 }

@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using TheFinalBattle.Classes;
 
-namespace TheFinalBattle.Interfaces
+namespace TheFinalBattle.Models
 {
-    interface IAction : IBehavior
+    class Punch : StandardAttack
     {
-        //void Execute(ICharacter character);
+        public Punch() : base("PUNCH", 1) { }
     }
 }

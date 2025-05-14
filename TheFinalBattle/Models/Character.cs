@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TheFinalBattle.Interfaces;
+
+namespace TheFinalBattle.Classes
+{
+    internal class Character : ICharacter
+    {
+        public string Name { get; set; }
+        public Dictionary<string, IBehavior> Behaviors { get; set; }
+        public Character(string name)
+        {
+            Name = name;
+            Behaviors = new Dictionary<string, IBehavior>();
+            AddBehavior("donothing", new DoNothing());
+        }
+
+        public void AddBehavior(string behaviorName, IBehavior behavior)
+        {
+            Behaviors[behaviorName] = behavior;
+        }
+
+        public void PerformBehavior(string behaviorName)
+        {
+            if (Behaviors.TryGetValue(behaviorName, out IBehavior? behavior))
+            {
+                behavior.Execute(this);
+            }
+            else
+            {
+                Console.WriteLine($"{Name} has no actions named: {behaviorName}. Try another");
+            }
+        }
+    }
+
+}

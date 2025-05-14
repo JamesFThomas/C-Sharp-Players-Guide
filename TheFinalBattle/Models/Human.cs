@@ -7,18 +7,18 @@ using TheFinalBattle.Interfaces;
 
 namespace TheFinalBattle.Classes
 {
-    internal class Computer : IPlayer
+    internal class Human : IPlayer
     {
         public string Type { get; set; }
 
-        public Computer(string type )
+        public Human(string type)
         {
             Type = type;
         }
 
-        public void PickAction(ICharacter character)
+        public void PickBehavior(Character character)
         {
-            character.PerformAction("donothing");
+            // add logic for user to pick desired character action
         }
     }
 }

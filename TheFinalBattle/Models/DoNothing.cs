@@ -7,13 +7,17 @@ using TheFinalBattle.Interfaces;
 
 namespace TheFinalBattle.Classes
 {
-    class DoNothing : IAction
+    class DoNothing : IBehavior
     {
+        public string Name { get; set; } = "DO NOTHING";
+
+        public DoNothing() { }
+
         public void Execute(ICharacter character)
         {
-            var name = character.Name;
 
-            Console.WriteLine($"{name} did NOTHING");
+
+            Console.WriteLine($"{character.Name} will {Name}");
 
         }
     }

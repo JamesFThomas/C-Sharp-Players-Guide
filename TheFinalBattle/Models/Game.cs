@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using TheFinalBattle.Interfaces;
@@ -60,14 +61,14 @@ namespace TheFinalBattle.Classes
 {
     internal class Game
     {
-        public List<ICharacter> Heroes { get; set; } = new List<ICharacter>();
-        public List<ICharacter> Monsters { get; set; } = new List<ICharacter>();
+        public List<Character> Heroes { get; set; } = new List<Character>();
+        public List<Character> Monsters { get; set; } = new List<Character>();
 
-        public Dictionary<string, List<ICharacter>> Parties;
+        public Dictionary<string, List<Character>> Parties;
 
         public Game()
         {
-            Parties = new Dictionary<string, List<ICharacter>>()
+            Parties = new Dictionary<string, List<Character>>()
                 {
                     { "heroes", Heroes },
                     { "monsters", Monsters }
@@ -128,12 +129,12 @@ namespace TheFinalBattle.Classes
 
         }
 
-        public void AddToHeroesParty(ICharacter character)
+        public void AddToHeroesParty(Character character)
         {
             Heroes.Add(character);
         }
 
-        public void AddToMonstersParty(ICharacter character)
+        public void AddToMonstersParty(Character character)
         {
             Monsters.Add(character);
         }
@@ -143,7 +144,7 @@ namespace TheFinalBattle.Classes
             foreach (var hero in Heroes)
             {
                 WhosTurn(hero);
-                player.PickAction(hero);
+                player.PickBehavior(hero);
                 Thread.Sleep(500);
             }
         }
@@ -153,7 +154,7 @@ namespace TheFinalBattle.Classes
             foreach (var monster in Monsters)
             {
                 WhosTurn(monster);
-                player.PickAction(monster);
+                player.PickBehavior(monster);
                 Thread.Sleep(500);
             }
         }
@@ -166,6 +167,10 @@ namespace TheFinalBattle.Classes
 
         public void Battle(IPlayer player1, IPlayer player2) 
         {
+            // give access to both parties for each player
+            // The player will need access to the list of characters that are potential targets. 
+            // In my case, I passed my Battle object(which represents the entire battle and gives access to both parties and all their members) to the player
+            // I then added methods to Battle where I could give it a character, and it would return the character's party ( GetPartyFor(Character) ) or the opposing party ( GetEnemyPartFor(Character) ).
             HeroesTurns(player1);
             MonstersTurns(player2);
         }
@@ -314,3 +319,5 @@ Objectives:
 - Note: To somebody watching, the end result of this challenge may look identical to before this challenge
 
 */
+
+// 4.

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TheFinalBattle.Classes;
 
 namespace TheFinalBattle.Interfaces
 {
-    interface IAction : IBehavior
+    interface IAttack : IBehavior
     {
-        //void Execute(ICharacter character);
+        int Damage { get; set; }
+
+        void Execute(ICharacter attacker, ICharacter target);
     }
 }

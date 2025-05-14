@@ -4,18 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TheFinalBattle.Interfaces;
+using TheFinalBattle.Models;
 
 namespace TheFinalBattle.Classes
 {
-     class Skeleton : Character
+    internal class TrueProgrammer : Character
     {
-        public Skeleton(string name) : base(name)
+        public TrueProgrammer(string name) : base(name)
         {
-            // any later skeleton specific information cna be added here
+            AddBehavior("punch", new Punch());
         }
 
-
         // override or add method specific to class here when ready 
-
     }
 }
