@@ -9,7 +9,13 @@ namespace TheFinalBattle.Interfaces
 {
     interface ICharacter
     {
-        string Name { get; }
+        string Name { get; set; }
+
+        int MaxHP { get; set; }
+
+        int CurrentHP { get; set; }
+
+        int Health => CurrentHP / MaxHP;
 
         public void AddBehavior(string behaviorName, IBehavior action );
         public void PerformBehavior(string actionName, Character? target);

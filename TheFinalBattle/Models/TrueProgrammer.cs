@@ -10,7 +10,8 @@ namespace TheFinalBattle.Classes
 {
     internal class TrueProgrammer : Character
     {
-        public TrueProgrammer(string name) : base(name)
+                
+        public TrueProgrammer(string name) : base(name, 25)
         {
             AddBehavior("punch", new Punch());
         }

@@ -11,9 +11,14 @@ namespace TheFinalBattle.Classes
     {
         public string Name { get; set; }
         public Dictionary<string, IBehavior> Behaviors { get; set; }
-        public Character(string name)
+        public int MaxHP { get; set; }
+        public int CurrentHP { get; set; }
+
+        public Character(string name, int max)
         {
             Name = name;
+            MaxHP = max;
+            CurrentHP = max;
             Behaviors = new Dictionary<string, IBehavior>();
             AddBehavior("donothing", new DoNothing());
         }

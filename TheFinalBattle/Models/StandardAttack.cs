@@ -17,7 +17,7 @@ namespace TheFinalBattle.Classes
             Name = name;
             Damage = damage;
         }
-        public void Execute(Character attacker, Character? target)
+        public virtual void Execute(Character attacker, Character? target)
         {
             // Will add logic for damage here in a later challenge 
             Console.WriteLine($"{attacker.Name} used {Name} on {target?.Name}");
