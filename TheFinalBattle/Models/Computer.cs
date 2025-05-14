@@ -18,13 +18,13 @@ namespace TheFinalBattle.Classes
             Type = type;
         }
 
-        public void PickBehavior(Character character)
+        public void PickBehavior(Character character, Character? target)
         {
             foreach (var behaviorPair in character.Behaviors)
             {
                 if (behaviorPair.Value is StandardAttack)
                 {
-                    character.PerformBehavior(behaviorPair.Key);
+                    character.PerformBehavior(behaviorPair.Key, target);
                     break; 
                 }
             }

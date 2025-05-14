@@ -11,6 +11,6 @@ namespace TheFinalBattle.Interfaces
     {
         string Type { get; set; }
 
-        void PickBehavior(Character character);
+        void PickBehavior(Character character, Character? target);
     }
 }

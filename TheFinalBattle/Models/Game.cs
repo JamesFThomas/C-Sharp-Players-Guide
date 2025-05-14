@@ -146,7 +146,7 @@ namespace TheFinalBattle.Classes
             foreach (var hero in Heroes)
             {
                 WhosTurn(hero);
-                player.PickBehavior(hero);
+                player.PickBehavior(hero, targets[0]);
                 Thread.Sleep(500);
             }
         }
@@ -158,7 +158,7 @@ namespace TheFinalBattle.Classes
             foreach (var monster in Monsters)
             {
                 WhosTurn(monster);
-                player.PickBehavior(monster);
+                player.PickBehavior(monster, targets[0]);
                 Thread.Sleep(500);
             }
         }
@@ -171,20 +171,11 @@ namespace TheFinalBattle.Classes
 
         public void Battle(IPlayer player1, IPlayer player2) 
         {
-            // give access to both parties for each player
-            // Eventually this method will have to perform multiple rounds in the battle
-
-            // The player will need access to the list of characters that are potential targets. 
-            // In my case, I passed my Battle object(which represents the entire battle and gives access to both parties and all their members) to the player
-            // I then added methods to Battle where I could give it a character, and it would return the character's party ( GetPartyFor(Character) ) or the opposing party ( GetEnemyPartyFor(Character) ).
             HeroesTurns(player1);
             MonstersTurns(player2);
         }
     }
 }
-
-
-
 
 
 

@@ -16,7 +16,7 @@ namespace TheFinalBattle.Classes
             Type = type;
         }
 
-        public void PickBehavior(Character character)
+        public void PickBehavior(Character character, Character? target)
         {
             // add logic for user to pick desired character action
         }

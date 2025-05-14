@@ -17,14 +17,11 @@ namespace TheFinalBattle.Classes
             Name = name;
             Damage = damage;
         }
-        public void Execute(ICharacter attacker, ICharacter target)
+        public void Execute(Character attacker, Character? target)
         {
             // Will add logic for damage here in a later challenge 
-            Console.WriteLine($"{attacker.Name} used {Name} on {target.Name}");
+            Console.WriteLine($"{attacker.Name} used {Name} on {target?.Name}");
         }
 
-        public void Execute(ICharacter character)        
-        {            
-            Console.WriteLine($"{character.Name} standard attack is: {Name}.");        }
     }
 }

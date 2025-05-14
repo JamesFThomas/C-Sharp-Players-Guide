@@ -13,7 +13,7 @@ namespace TheFinalBattle.Classes
 
         public DoNothing() { }
 
-        public void Execute(ICharacter character)
+        public void Execute(Character character, Character? target)
         {
 
 

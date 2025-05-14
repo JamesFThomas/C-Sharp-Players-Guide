@@ -23,17 +23,18 @@ namespace TheFinalBattle.Classes
             Behaviors[behaviorName] = behavior;
         }
 
-        public void PerformBehavior(string behaviorName)
+        public void PerformBehavior(string behaviorName, Character? target)
         {
             if (Behaviors.TryGetValue(behaviorName, out IBehavior? behavior))
             {
-                behavior.Execute(this);
+                behavior.Execute(this, target);
             }
             else
             {
                 Console.WriteLine($"{Name} has no actions named: {behaviorName}. Try another");
             }
         }
+
     }
 
 }

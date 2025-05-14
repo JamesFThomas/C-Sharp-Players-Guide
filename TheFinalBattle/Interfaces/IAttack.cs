@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TheFinalBattle.Classes;
 
 namespace TheFinalBattle.Interfaces
 {
@@ -10,6 +11,5 @@ namespace TheFinalBattle.Interfaces
     {
         int Damage { get; set; }
 
-        void Execute(ICharacter attacker, ICharacter target);
     }
 }

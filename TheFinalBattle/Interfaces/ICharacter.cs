@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TheFinalBattle.Classes;
 
 namespace TheFinalBattle.Interfaces
 {
@@ -11,7 +12,7 @@ namespace TheFinalBattle.Interfaces
         string Name { get; }
 
         public void AddBehavior(string behaviorName, IBehavior action );
-        public void PerformBehavior(string actionName);
+        public void PerformBehavior(string actionName, Character? target);
 
     }
 }
