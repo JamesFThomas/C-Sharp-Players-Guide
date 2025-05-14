@@ -13,6 +13,7 @@ namespace TheFinalBattle.Classes
         public Dictionary<string, IBehavior> Behaviors { get; set; }
         public int MaxHP { get; set; }
         public int CurrentHP { get; set; }
+        public string Health => $"{CurrentHP}/{MaxHP}";
 
         public Character(string name, int max)
         {

@@ -31,7 +31,6 @@ Objectives:
 - Attacks should be able to produce attack data for a specific use of the attack. 
 For now, this is simply the amount of damage that they will deal this time, though keep in mind that other challenges will add more data to this, including things like the frequency of hitting or missing and damage types.  
 
-
 - The PUNCH attack should deal 1 point of damage while the BONE CRUNCH should randomly deal 0 or 1 damage point. 
 HINT: Remember that Random can be used to generate random numbers. random.Next(2) will generate a 0 or 1 equal probability.  
 

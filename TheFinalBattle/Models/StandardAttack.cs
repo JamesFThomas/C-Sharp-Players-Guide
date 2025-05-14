@@ -19,9 +19,22 @@ namespace TheFinalBattle.Classes
         }
         public virtual void Execute(Character attacker, Character? target)
         {
-            // Will add logic for damage here in a later challenge 
             Console.WriteLine($"{attacker.Name} used {Name} on {target?.Name}");
-        }
+            
+            Console.WriteLine($"{Name} dealt {Damage} damage to {target?.Name}");
 
+            if (target != null)
+            {
+                target.CurrentHP -= Damage;
+                
+                if (target.CurrentHP <= 0) // don't reduce HP below 0
+                { 
+                    target.CurrentHP = 0;
+                }
+            }
+
+            Console.WriteLine($"{target?.Name} health is now {target?.Health}");
+
+        }
     }
 }
