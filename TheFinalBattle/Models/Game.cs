@@ -10,25 +10,26 @@ using static System.Formats.Asn1.AsnWriter;
 
 /*
 
-Title: Battle Series
+Title: The Uncoded One
 
 
 Story: 
 
-The game runs as a series of battles, not just one. 
+It is time to put the final boss into the game.
 
-The heroes do not win until every battle has been won, while the monsters win if they can stop the heroes in any battle 
+The Uncoded one itself. 
+
+We will add this monster in as a third battle. 
 
 
 Objectives: 
 
-- There is ony party of heroes but multiple parties of monsters.
-For now build, two monster parties: the first should have one skeleton, and the second has two skeletons. 
+- Define a new type of monster, The Uncoded One.
+It should have 15 HP and an unravelling attack that randomly deals between 0-2 damage when used.
+The Uncoded one out to have more HP than the True Programmer, but much more than 15 HP means the Uncoded one wins every time. 
+We can adjust these numbers later.
 
-- Start the battle with the heroes and the first party of monsters. 
-When the heroes win, advance to the next party of monsters
-If the heroes lose a battle, end the game. If the monsters lose a battle, move to the next battle unless it is the last. 
-
+- Add a third battle to the series that contains the Uncoded One. 
 
 */
 
@@ -489,3 +490,31 @@ If so the battle (and the game ) should end.
 If the monsters won, then display a message saying that the heroes lost and the Uncoded One's forces have prevailed. 
 
 */
+
+// 7.
+
+/*
+
+Title: Battle Series
+
+
+Story: 
+
+The game runs as a series of battles, not just one. 
+
+The heroes do not win until every battle has been won, while the monsters win if they can stop the heroes in any battle 
+
+
+Objectives: 
+
+- There is ony party of heroes but multiple parties of monsters.
+For now build, two monster parties: the first should have one skeleton, and the second has two skeletons. 
+
+- Start the battle with the heroes and the first party of monsters. 
+When the heroes win, advance to the next party of monsters
+If the heroes lose a battle, end the game. If the monsters lose a battle, move to the next battle unless it is the last. 
+
+
+*/
+
+// 8.
