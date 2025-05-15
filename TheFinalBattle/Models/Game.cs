@@ -39,18 +39,17 @@ namespace TheFinalBattle.Classes
     internal class Game
     {
         public List<Character> Heroes { get; set; } = new List<Character>();
-        public List<Character> Monsters { get; set; } = new List<Character>();
-
-        public Dictionary<string, List<Character>> Parties;
+        public List<List<Character>> Monsters { get; set; } = new List<List<Character>>();
 
         public Game()
         {
-            Parties = new Dictionary<string, List<Character>>()
-                {
-                    { "heroes", Heroes },
-                    { "monsters", Monsters }
-                };
+            Monsters = new List<List<Character>>()
+               {
+                   new List<Character>(),   
+                   new List<Character>()
+            };
         }
+
 
         public void Start()
         {
@@ -81,7 +80,7 @@ namespace TheFinalBattle.Classes
 
             AddToHeroesParty(hero);
 
-            AddToMonstersParty(new Skeleton("Skelly"));
+            AddToMonstersParty();
 
         }
 
@@ -111,9 +110,14 @@ namespace TheFinalBattle.Classes
             Heroes.Add(character);
         }
 
-        public void AddToMonstersParty(Character character)
+        public void AddToMonstersParty()
         {
-            Monsters.Add(character);
+            Character character = new Skeleton("Skelly");
+            Character character1 = new Skeleton("Skelly 2");
+            Character character2 = new Skeleton("Skelly 3");
+            Monsters[0].Add(character);
+            Monsters[1].Add(character1);
+            Monsters[1].Add(character2);
         }
 
         private void CheckCharacterHealth(Character character, List<Character> party)
@@ -132,42 +136,55 @@ namespace TheFinalBattle.Classes
             Console.WriteLine(prompt);
         }
 
-        private static void CheckBattleOutcome(List<Character> heroes, List<Character> monsters)
+        public void HuzzahTheHeroesWon()
         {
-            bool heroesAlive = heroes.Any(character => character.CurrentHP > 0);
-            bool monstersAlive = monsters.Any(character => character.CurrentHP > 0);
+            Console.WriteLine("Heroes have lost! The Uncoded One's forces have prevailed.");
+        }
+
+        public void BooTheMonstersWon()
+        {
+            Console.WriteLine("Heroes have won! The Uncoded One has been defeated.");
+        }
+
+        private void CheckBattleOutcome()
+        {
+            
+            bool heroesAlive = Heroes.Any(character => character.CurrentHP > 0);
+            bool monstersParty1Alive = Monsters.Count > 0 && Monsters[0].Any(character => character.CurrentHP > 0);
+            bool monstersParty2Alive = Monsters.Count > 1 && Monsters[1].Any(character => character.CurrentHP > 0);
 
             if (!heroesAlive)
             {
-                Console.WriteLine("Heroes have lost! The Uncoded One's forces have prevailed.");
+                HuzzahTheHeroesWon();
+                return;
             }
-            else if (!monstersAlive)
+            else if (!monstersParty1Alive && !monstersParty2Alive)
             {
-                Console.WriteLine("Heroes have won! The Uncoded One has been defeated.");
+                BooTheMonstersWon();
+                return;
             }
         }
 
-        public void HeroesTurns(IPlayer player)
+        public void HeroesTurns(IPlayer player, List<Character> targets)
         {
-            var targets = Monsters;
             var currentTarget = targets[0];
 
             foreach (var hero in Heroes)
             {
                 WhosTurn(hero);
                 player.PickBehavior(hero, currentTarget);
-                CheckCharacterHealth(currentTarget, Monsters);
+                CheckCharacterHealth(currentTarget, targets);
                 Thread.Sleep(500);
             }
         }
 
 
-        public void MonstersTurns(IPlayer player)
+        public void MonstersTurns(IPlayer player, int index)
         {
             var targets = Heroes;
             var currentTarget = targets[0];
 
-            foreach (var monster in Monsters)
+            foreach (var monster in Monsters[index])
             {
                 WhosTurn(monster);
                 player.PickBehavior(monster, currentTarget);
@@ -179,20 +196,29 @@ namespace TheFinalBattle.Classes
 
         public void Battle(IPlayer player1, IPlayer player2)
         {
-            while (Heroes.Any() && Monsters.Any()) 
-            {
-                HeroesTurns(player1);
-                if (!Monsters.Any()) 
-                {
-                    CheckBattleOutcome(Heroes, Monsters);
-                    break;                 }
 
-                MonstersTurns(player2);
+            int currentIndex = 0;
+
+            while (Heroes.Any() && currentIndex < Monsters.Count ) 
+            {
+                var currentMonsterParty = Monsters[currentIndex];
+
+                HeroesTurns(player1, currentMonsterParty);
+                if (!currentMonsterParty.Any()) 
+                {
+                    Console.WriteLine($"Monster party {currentIndex + 1} has been defeated!"); 
+                    CheckBattleOutcome();
+                    currentIndex++; 
+                    continue; 
+                }
+
+                MonstersTurns(player2, currentIndex);
                 if (!Heroes.Any()) 
                 {
-                    CheckBattleOutcome(Heroes, Monsters);
+                    CheckBattleOutcome();
                     break;
                 }
+
             }
         }
     }
