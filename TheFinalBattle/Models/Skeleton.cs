@@ -10,7 +10,7 @@ namespace TheFinalBattle.Classes
 {
      class Skeleton : Character
     {
-        public Skeleton(string name) : base(name, 1)
+        public Skeleton(string name) : base(name, 5)
         {
             AddBehavior("bonecrunch", new BoneCrunch());
         }

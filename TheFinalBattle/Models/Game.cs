@@ -129,6 +129,27 @@ namespace TheFinalBattle.Classes
             }
         }
 
+        public void WhosTurn(ICharacter character)
+        {
+            string prompt = $"\nIt's {character.Name}'s turn";
+            Console.WriteLine(prompt);
+        }
+
+        private static void CheckBattleOutcome(List<Character> heroes, List<Character> monsters)
+        {
+            bool heroesAlive = heroes.Any(character => character.CurrentHP > 0);
+            bool monstersAlive = monsters.Any(character => character.CurrentHP > 0);
+
+            if (!heroesAlive)
+            {
+                Console.WriteLine("Heroes have lost! The Uncoded One's forces have prevailed.");
+            }
+            else if (!monstersAlive)
+            {
+                Console.WriteLine("Heroes have won! The Uncoded One has been defeated.");
+            }
+        }
+
         public void HeroesTurns(IPlayer player)
         {
             var targets = Monsters;
@@ -158,16 +179,24 @@ namespace TheFinalBattle.Classes
             }
         }
 
-        public void WhosTurn(ICharacter character)
-        {
-            string prompt = $"\nIt's {character.Name}'s turn";
-            Console.WriteLine(prompt);
-        }
 
-        public void Battle(IPlayer player1, IPlayer player2) 
+        public void Battle(IPlayer player1, IPlayer player2)
         {
-            HeroesTurns(player1);
-            MonstersTurns(player2);
+            while (Heroes.Any() && Monsters.Any()) 
+            {
+                HeroesTurns(player1);
+                if (!Monsters.Any()) 
+                {
+                    CheckBattleOutcome(Heroes, Monsters);
+                    break;                 }
+
+                MonstersTurns(player2);
+                if (!Heroes.Any()) 
+                {
+                    CheckBattleOutcome(Heroes, Monsters);
+                    break;
+                }
+            }
         }
     }
 }
