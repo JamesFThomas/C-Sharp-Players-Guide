@@ -119,26 +119,41 @@ namespace TheFinalBattle.Classes
             Monsters.Add(character);
         }
 
+        private void CheckCharacterHealth(Character character, List<Character> party)
+        {
+            if (character.CurrentHP == 0)
+            {
+                Console.WriteLine($"{character.Name} has been defeated!");
+                
+                party.Remove(character);
+            }
+        }
+
         public void HeroesTurns(IPlayer player)
         {
             var targets = Monsters;
+            var currentTarget = targets[0];
 
             foreach (var hero in Heroes)
             {
                 WhosTurn(hero);
-                player.PickBehavior(hero, targets[0]);
+                player.PickBehavior(hero, currentTarget);
+                CheckCharacterHealth(currentTarget, Monsters);
                 Thread.Sleep(500);
             }
         }
 
+
         public void MonstersTurns(IPlayer player)
         {
             var targets = Heroes;
+            var currentTarget = targets[0];
 
             foreach (var monster in Monsters)
             {
                 WhosTurn(monster);
-                player.PickBehavior(monster, targets[0]);
+                player.PickBehavior(monster, currentTarget);
+                CheckCharacterHealth(currentTarget, Heroes);
                 Thread.Sleep(500);
             }
         }
