@@ -6,6 +6,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using TheFinalBattle.Interfaces;
+using TheFinalBattle.Models;
 using static System.Formats.Asn1.AsnWriter;
 
 /*
@@ -47,6 +48,7 @@ namespace TheFinalBattle.Classes
             Monsters = new List<List<Character>>()
                {
                    new List<Character>(),   
+                   new List<Character>(),
                    new List<Character>()
             };
         }
@@ -114,19 +116,23 @@ namespace TheFinalBattle.Classes
         public void AddToMonstersParty()
         {
             Character character = new Skeleton("Skelly");
-            Character character1 = new Skeleton("Skelly 2");
-            Character character2 = new Skeleton("Skelly 3");
-            Monsters[0].Add(character);
-            Monsters[1].Add(character1);
-            Monsters[1].Add(character2);
+            Character character1 = new Skeleton("Skeletor");
+            Character character2 = new Skeleton("Skeletia");
+            Character finalBoos = new UncodedOne("Boss Hog");
+
+            Monsters[0].Add(character);     // Battle 1
+            Monsters[1].Add(character1);    // Battle 2
+            Monsters[1].Add(character2);    // Battle 2
+            Monsters[2].Add(finalBoos);     // Battle 3
         }
 
         private void CheckCharacterHealth(Character character, List<Character> party)
         {
             if (character.CurrentHP == 0)
             {
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
                 Console.WriteLine($"{character.Name} has been defeated!");
-                
+                Console.ResetColor();
                 party.Remove(character);
             }
         }
@@ -139,27 +145,30 @@ namespace TheFinalBattle.Classes
 
         public void HuzzahTheHeroesWon()
         {
-            Console.WriteLine("Heroes have lost! The Uncoded One's forces have prevailed.");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("\nHeroes have lost! The Uncoded One's forces have prevailed.");
+            Console.ResetColor();
         }
 
         public void BooTheMonstersWon()
         {
-            Console.WriteLine("Heroes have won! The Uncoded One has been defeated.");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("\nHeroes have won! The Uncoded One has been defeated.");
+            Console.ResetColor();
         }
 
         private void CheckBattleOutcome()
         {
             
             bool heroesAlive = Heroes.Any(character => character.CurrentHP > 0);
-            bool monstersParty1Alive = Monsters.Count > 0 && Monsters[0].Any(character => character.CurrentHP > 0);
-            bool monstersParty2Alive = Monsters.Count > 1 && Monsters[1].Any(character => character.CurrentHP > 0);
+            bool monstersAlive = Monsters.Any(party => party.Any(character => character.CurrentHP > 0));
 
             if (!heroesAlive)
             {
                 HuzzahTheHeroesWon();
                 return;
             }
-            else if (!monstersParty1Alive && !monstersParty2Alive)
+            else if (!monstersAlive)
             {
                 BooTheMonstersWon();
                 return;
@@ -207,7 +216,9 @@ namespace TheFinalBattle.Classes
                 HeroesTurns(player1, currentMonsterParty);
                 if (!currentMonsterParty.Any()) 
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.WriteLine($"Monster party {currentIndex + 1} has been defeated!"); 
+                    Console.ResetColor();
                     CheckBattleOutcome();
                     currentIndex++; 
                     continue; 
@@ -518,3 +529,27 @@ If the heroes lose a battle, end the game. If the monsters lose a battle, move t
 */
 
 // 8.
+/*
+
+Title: The Uncoded One
+
+
+Story: 
+
+It is time to put the final boss into the game.
+
+The Uncoded one itself. 
+
+We will add this monster in as a third battle. 
+
+
+Objectives: 
+
+- Define a new type of monster, The Uncoded One.
+It should have 15 HP and an unravelling attack that randomly deals between 0-2 damage when used.
+The Uncoded one out to have more HP than the True Programmer, but much more than 15 HP means the Uncoded one wins every time. 
+We can adjust these numbers later.
+
+- Add a third battle to the series that contains the Uncoded One. 
+
+*/

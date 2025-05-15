@@ -16,7 +16,5 @@ namespace TheFinalBattle.Classes
         }
 
 
-        // override or add method specific to class here when ready 
-
     }
 }
