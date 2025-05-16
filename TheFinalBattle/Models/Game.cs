@@ -16,37 +16,30 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 /*
 
-Title: The Game Status
+Title: Vin Fletcher 
 
 
 Story: 
 
-This challenge gives us a cleaner representation of the status of the game. 
+The true Programmer does not have to fight the Uncoded One alone.
+The hero can have other heroes (compnaions) that should get their turn to fight. 
+In this challenge, we will add our favorite arrow maker, Vin Fletcher to the game. 
+This challenge will also add in the possibility for an attack to sometimes miss. 
+
 
 Objectives: 
 
-- Before a character gets their turn, display the overall status of the battle. 
-This status must include all characters in both parties with their current and total HP. 
+- When an attack generates attack data, it must also include a probability of success. 
+0 is guaranteed failure, 1 is guaranteed success, 0.5 is 50/50 etc.
 
-- You must also distinguish who's turn it is by color, a text marker, or some other identifier 
+- Modify your attack action to account for the possibility of missing. 
+If an attack misses, don't damage the target and instead report that the attack missed. 
+Example: "VIN FLETCHER MISSED"
 
-- Note: You have the flexibility in how you approach this challenge, but the following shows one possibility
-( with the current character colored yell instead of white )
-
-
-================================================================== BATTLE ==================================================================
-
-TOG  (25/25)
-
-
---------------------------------------------------------------------- VS ------------------------------------------------------------------
-                                                       
-                                                                                                                             Skeleton (5/5)
-                                                                                                                             Skeleton (5/5)
-
-
-=============================================================================================================================================
-
+- Create a new character type to represent VIN FLETCHER.
+He starts with 15 HP.
+If you did the Gear challenge, Vin should have the same standard attack PUNCH as the true Programmer has and equip him ith Vin's Bow gear with an attack called quick shot that deals 3 damage but only succeeds 50% of the time. 
+If you did not do the Gear Challenge, give Vin quick shot as his standard attack. 
 
 */
 
@@ -714,3 +707,40 @@ That means I create many IAction objects that don't get used, but it is a system
 // Expansion Challenges 
 
 // 1.
+/*
+
+Title: The Game Status
+
+
+Story: 
+
+This challenge gives us a cleaner representation of the status of the game. 
+
+Objectives: 
+
+- Before a character gets their turn, display the overall status of the battle. 
+This status must include all characters in both parties with their current and total HP. 
+
+- You must also distinguish who's turn it is by color, a text marker, or some other identifier 
+
+- Note: You have the flexibility in how you approach this challenge, but the following shows one possibility
+( with the current character colored yell instead of white )
+
+
+================================================================== BATTLE ==================================================================
+
+TOG  (25/25)
+
+
+--------------------------------------------------------------------- VS ------------------------------------------------------------------
+                                                       
+                                                                                                                             Skeleton (5/5)
+                                                                                                                             Skeleton (5/5)
+
+
+=============================================================================================================================================
+
+
+*/
+
+// 2. 
