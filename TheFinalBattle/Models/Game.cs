@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TheFinalBattle.Interfaces;
 using TheFinalBattle.Models;
 using static System.Formats.Asn1.AsnWriter;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 /*
 
@@ -79,9 +84,23 @@ namespace TheFinalBattle.Classes
 
             GameExplanation();
 
+            
+            ChooseGameMode(); // method for choosing GameMode, player types to feed to Battle()
+
             CreateHeroAndMonsterParties();
 
-            Battle(new Computer("computer1"), new Computer("computer2"));
+
+            Battle(new Human("Player 1"), new Computer("Computer")); // Should be moved to inside ChooseGameMode() 
+        }
+
+        private void ChooseGameMode()
+        {
+            // As the game is starting, allow the user to choose from three following gameplay modes:
+            // 1.player vs.computer(human player will command the heroes and the computer the monsters party)
+            // 2.computer vs.computer(a computer player running each team as we have done so far)
+            // 3.human vs human(where a human picks actions for both sides )
+            Console.WriteLine("Choose GameMode, coming soon");
+
         }
 
         public void GameExplanation()

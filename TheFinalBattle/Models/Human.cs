@@ -18,7 +18,32 @@ namespace TheFinalBattle.Classes
 
         public void PickBehavior(Character character, Character? target)
         {
-            // add logic for user to pick desired character action
+ 
+            string? userInput;
+            int convertedInput = 0; 
+            string choicesPrompt = $"What behavior would you like {character.Name} to perform?";
+            string invalidInputPrompt = $"Your behavior choice was invalid for {character.Name}. Try again!";
+
+            int choice = 0;
+            Console.WriteLine(choicesPrompt);
+            foreach (KeyValuePair<string, IBehavior> keyValuePair in character.Behaviors)
+            {
+                Console.WriteLine($"{choice} - {keyValuePair.Key}");
+                choice++;
+            }
+
+            userInput = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(userInput) || !Int32.TryParse(userInput, out convertedInput) || convertedInput >= character.Behaviors.Count || convertedInput < 0)
+            {
+                Console.WriteLine(invalidInputPrompt);
+                PickBehavior(character, target);
+                return;
+            }
+
+            var behaviorKey = character.Behaviors.Keys.ElementAt(convertedInput);
+
+            character.PerformBehavior(behaviorKey, target);
         }
     }
 }
