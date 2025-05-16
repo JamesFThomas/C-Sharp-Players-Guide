@@ -16,48 +16,42 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 /*
 
-Title: The Player Decides
+Title: The Game Status
 
 
 Story: 
 
-We have one critical missing piece to add before the core game is done: letting a human play it. 
-
+This challenge gives us a cleaner representation of the status of the game. 
 
 Objectives: 
 
-- The game should allow a human player to play it by retrieving their action choices through the console window. 
-For a human-controlled character, the human can use that character's standard attack or do nothing. 
-It is acceptable for all attacks selected by the human to target the first ( or random ) target without allowing the player to pick one specifically. 
-You can let the player pick if you want, but it is not required.
+- Before a character gets their turn, display the overall status of the battle. 
+This status must include all characters in both parties with their current and total HP. 
 
-- The following is one possible approach: 
-------------------------------------------------------------------------------------------------------------------------------------------
+- You must also distinguish who's turn it is by color, a text marker, or some other identifier 
 
-It's TOG's turn...
-1 - Standard Attack (PUNCH)
-2 - Do Nothing
-
-What do you want to do?  2
-
-------------------------------------------------------------------------------------------------------------------------------------------
+- Note: You have the flexibility in how you approach this challenge, but the following shows one possibility
+( with the current character colored yell instead of white )
 
 
-- As the game is starting, allow the user to choose from three following gameplay modes:
-1. player vs. computer ( human player will command the heroes and the computer the monsters party )
-2. computer vs. computer ( a computer player running each team as we have done so far )
-3. human vs human ( where a human picks actions for both sides )
+================================================================== BATTLE ==================================================================
+
+TOG  (25/25)
 
 
-- Hint:
-There are many ways you could approach this. My solution was to build a MenuItem record that held information about options in the menu. 
-It included properties string Description, bool IsEnabled, and IActionToPerform.IAction is my interface representing any of the action types, with implementation like DoNothingAction and AttackAction. 
-I have a method that creates the list of menu items, and it produces a new MenuItem instance for each choice. 
-The code draws the menu iterates through the MenuItem instance and displays them with a number. 
-After getting the number, I find the right MenuItem, extract the IAction, and return it. 
-That means I create many IAction objects that don't get used, but it is a system that is easy to extend in the future challenges. 
+--------------------------------------------------------------------- VS ------------------------------------------------------------------
+                                                       
+                                                                                                                             Skeleton (5/5)
+                                                                                                                             Skeleton (5/5)
+
+
+=============================================================================================================================================
+
 
 */
+
+
+
 
 
 
@@ -628,3 +622,54 @@ We can adjust these numbers later.
 - Add a third battle to the series that contains the Uncoded One. 
 
 */
+
+// 9.
+/*
+
+Title: The Player Decides 
+
+
+Story: 
+
+We have one critical missing piece to add before the core game is done: letting a human play it. 
+
+
+Objectives: 
+
+- The game should allow a human player to play it by retrieving their action choices through the console window. 
+For a human-controlled character, the human can use that character's standard attack or do nothing. 
+It is acceptable for all attacks selected by the human to target the first ( or random ) target without allowing the player to pick one specifically. 
+You can let the player pick if you want, but it is not required.
+
+- The following is one possible approach: 
+------------------------------------------------------------------------------------------------------------------------------------------
+
+It's TOG's turn...
+1 - Standard Attack (PUNCH)
+2 - Do Nothing
+
+What do you want to do?  2
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+
+- As the game is starting, allow the user to choose from three following gameplay modes:
+1. player vs. computer ( human player will command the heroes and the computer the monsters party )
+2. computer vs. computer ( a computer player running each team as we have done so far )
+3. human vs human ( where a human picks actions for both sides )
+
+
+- Hint:
+There are many ways you could approach this. My solution was to build a MenuItem record that held information about options in the menu. 
+It included properties string Description, bool IsEnabled, and IActionToPerform.IAction is my interface representing any of the action types, with implementation like DoNothingAction and AttackAction. 
+I have a method that creates the list of menu items, and it produces a new MenuItem instance for each choice. 
+The code draws the menu iterates through the MenuItem instance and displays them with a number. 
+After getting the number, I find the right MenuItem, extract the IAction, and return it. 
+That means I create many IAction objects that don't get used, but it is a system that is easy to extend in the future challenges. 
+
+*/
+
+
+// Expansion Challenges 
+
+// 1.
