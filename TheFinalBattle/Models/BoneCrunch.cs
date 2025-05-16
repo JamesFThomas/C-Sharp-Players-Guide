@@ -20,9 +20,9 @@ namespace TheFinalBattle.Models
         {
             int damage = Random.Next(2);
 
-            Console.WriteLine($"{attacker.Name} used {Name} on {target?.Name}");
+            Console.WriteLine($"\n{attacker.Name} used {Name} on {target?.Name}");
 
-            Console.WriteLine($"{Name} dealt {Damage} damage to {target?.Name}");
+            Console.WriteLine($"{Name} dealt {damage} damage to {target?.Name}");
 
             if (target != null)
             {

@@ -80,27 +80,63 @@ namespace TheFinalBattle.Classes
 
 
         public void Start()
-        {
-
+        { 
             GameExplanation();
 
-            
-            ChooseGameMode(); // method for choosing GameMode, player types to feed to Battle()
+            var (player1, player2) = ChooseGameMode();
 
             CreateHeroAndMonsterParties();
 
+            Battle(player1,player2);
 
-            Battle(new Human("Player 1"), new Computer("Computer")); // Should be moved to inside ChooseGameMode() 
         }
 
-        private void ChooseGameMode()
+        private (IPlayer, IPlayer) ChooseGameMode()
         {
-            // As the game is starting, allow the user to choose from three following gameplay modes:
-            // 1.player vs.computer(human player will command the heroes and the computer the monsters party)
-            // 2.computer vs.computer(a computer player running each team as we have done so far)
-            // 3.human vs human(where a human picks actions for both sides )
-            Console.WriteLine("Choose GameMode, coming soon");
+            IPlayer player1 = null!;
+            IPlayer player2 = null!;
+            string? gameMode;
+            int convertedInput;
 
+            string invalidEntryPrompt = "\nYour entry was NOT a valid game mode";
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nChoose what game play mode you want.");
+            Console.WriteLine("1 => Single player");
+            Console.WriteLine("2 => Double player versus");
+            Console.WriteLine("3 => I just want to watch!");
+            Console.ResetColor();
+
+            gameMode = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(gameMode) || !int.TryParse(gameMode, out convertedInput) || (convertedInput < 1 || convertedInput > 3))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(invalidEntryPrompt);
+                Console.ResetColor();
+                return ChooseGameMode();
+            }
+
+            switch (convertedInput)
+            {
+                case 1:
+                    player1 = new Human("Player 1");
+                    player2 = new Computer("Computer");
+                    break;
+                case 2:
+                    player1 = new Human("Player 1");
+                    player2 = new Human("Player 2");
+                    break;
+                case 3:
+                    player1 = new Computer("Player 1");
+                    player2 = new Computer("Computer");
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    Console.WriteLine("You like to watch it. It's cool man no judgement!");
+                    Console.ResetColor();
+                    break;
+            }
+
+            return (player1, player2);
         }
 
         public void GameExplanation()

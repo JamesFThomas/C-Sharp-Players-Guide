@@ -19,7 +19,7 @@ namespace TheFinalBattle.Classes
         }
         public virtual void Execute(Character attacker, Character? target)
         {
-            Console.WriteLine($"{attacker.Name} used {Name} on {target?.Name}");
+            Console.WriteLine($"\n{attacker.Name} used {Name} on {target?.Name}");
             
             Console.WriteLine($"{Name} dealt {Damage} damage to {target?.Name}");
 

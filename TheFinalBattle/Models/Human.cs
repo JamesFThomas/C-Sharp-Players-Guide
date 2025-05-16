@@ -20,23 +20,29 @@ namespace TheFinalBattle.Classes
         {
  
             string? userInput;
-            int convertedInput = 0; 
-            string choicesPrompt = $"What behavior would you like {character.Name} to perform?";
-            string invalidInputPrompt = $"Your behavior choice was invalid for {character.Name}. Try again!";
+            int convertedInput = 0;
+            string menuPrompt = $"\n{character.Name}'s behaviors:";
+            string choicesPrompt = $"\nWhat behavior would you like {character.Name} to perform? ";
+            string invalidInputPrompt = $"\nYour behavior choice was invalid for {character.Name}. Try again!";
 
             int choice = 0;
-            Console.WriteLine(choicesPrompt);
+
+            Console.WriteLine(menuPrompt);
+
             foreach (KeyValuePair<string, IBehavior> keyValuePair in character.Behaviors)
             {
                 Console.WriteLine($"{choice} - {keyValuePair.Key}");
                 choice++;
             }
 
+            Console.Write(choicesPrompt);
             userInput = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(userInput) || !Int32.TryParse(userInput, out convertedInput) || convertedInput >= character.Behaviors.Count || convertedInput < 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(invalidInputPrompt);
+                Console.ResetColor();
                 PickBehavior(character, target);
                 return;
             }
