@@ -250,6 +250,7 @@ namespace TheFinalBattle.Classes
 
             foreach (var hero in Heroes)
             {
+                DisplayBattleStatus(hero, Heroes, Monsters);
                 WhosTurn(hero);
                 player.PickBehavior(hero, currentTarget);
                 CheckCharacterHealth(currentTarget, targets);
@@ -265,11 +266,51 @@ namespace TheFinalBattle.Classes
 
             foreach (var monster in Monsters[index])
             {
+                DisplayBattleStatus(monster, targets, Monsters);
                 WhosTurn(monster);
                 player.PickBehavior(monster, currentTarget);
                 CheckCharacterHealth(currentTarget, Heroes);
                 Thread.Sleep(500);
             }
+        }
+
+        public void DisplayBattleStatus(Character currentCharacter,  List<Character> heroes, List<List<Character>> monsters)
+        {
+            var allMonsters = monsters.SelectMany(monsterParty => monsterParty);
+
+            Console.WriteLine("================================================================== BATTLE ==================================================================");
+
+            foreach (var hero in heroes)
+            {
+                if (hero == currentCharacter)
+                {
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                }
+
+                Console.WriteLine($"{hero.Name} ------------------------------------------------------- {hero.Health}");
+
+                Console.ResetColor();
+            }
+
+            Console.WriteLine("\n--------------------------------------------------------------------- VS ------------------------------------------------------------------");
+
+
+
+
+            foreach (var monster in allMonsters)
+            {
+                if (monster == currentCharacter)
+                {
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                }
+
+                Console.WriteLine($"{monster.Name} ------------------------------------------------------- {monster.Health}");
+
+                Console.ResetColor();
+            }
+
+            Console.WriteLine("=============================================================================================================================================");
+
         }
 
 
