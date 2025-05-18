@@ -14,39 +14,6 @@ using TheFinalBattle.Models;
 using static System.Formats.Asn1.AsnWriter;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-/*
-
-Title: Vin Fletcher 
-
-
-Story: 
-
-The true Programmer does not have to fight the Uncoded One alone.
-The hero can have other heroes (compnaions) that should get their turn to fight. 
-In this challenge, we will add our favorite arrow maker, Vin Fletcher to the game. 
-This challenge will also add in the possibility for an attack to sometimes miss. 
-
-
-Objectives: 
-
-- When an attack generates attack data, it must also include a probability of success. 
-0 is guaranteed failure, 1 is guaranteed success, 0.5 is 50/50 etc.
-
-- Modify your attack action to account for the possibility of missing. 
-If an attack misses, don't damage the target and instead report that the attack missed. 
-Example: "VIN FLETCHER MISSED"
-
-- Create a new character type to represent VIN FLETCHER.
-He starts with 15 HP.
-If you did the Gear challenge, Vin should have the same standard attack PUNCH as the true Programmer has and equip him ith Vin's Bow gear with an attack called quick shot that deals 3 damage but only succeeds 50% of the time. 
-If you did not do the Gear Challenge, give Vin quick shot as his standard attack. 
-
-*/
-
-
-
-
-
 
 namespace TheFinalBattle.Classes
 {
@@ -143,7 +110,11 @@ namespace TheFinalBattle.Classes
 
             TrueProgrammer hero = new TrueProgrammer(heroName);
 
+            VinFletcher vin = new VinFletcher();
+
             AddToHeroesParty(hero);
+
+            AddToHeroesParty(vin);
 
             AddToMonstersParty();
 
@@ -271,7 +242,7 @@ namespace TheFinalBattle.Classes
         {
             var allMonsters = monsters.SelectMany(monsterParty => monsterParty);
 
-            Console.WriteLine("================================================================== BATTLE ==================================================================");
+            Console.WriteLine("\n======================================================== BATTLE ========================================================\n");
 
             foreach (var hero in heroes)
             {
@@ -280,12 +251,12 @@ namespace TheFinalBattle.Classes
                     Console.ForegroundColor = ConsoleColor.Magenta;
                 }
 
-                Console.WriteLine($"{hero.Name} ------------------------------------------------------- {hero.Health}");
+                Console.WriteLine($"{hero.Name} _______________ {hero.Health}");
 
                 Console.ResetColor();
             }
 
-            Console.WriteLine("\n--------------------------------------------------------------------- VS ------------------------------------------------------------------");
+            Console.WriteLine("\n----------------------------------------------------------- VS --------------------------------------------------------\n");
 
 
 
@@ -297,12 +268,12 @@ namespace TheFinalBattle.Classes
                     Console.ForegroundColor = ConsoleColor.Magenta;
                 }
 
-                Console.WriteLine($"{monster.Name} ------------------------------------------------------- {monster.Health}");
+                Console.WriteLine($"                                                                                  {monster.Name} _____________ {monster.Health}");
 
                 Console.ResetColor();
             }
 
-            Console.WriteLine("=============================================================================================================================================");
+            Console.WriteLine("=========================================================================================================================");
 
         }
 
@@ -743,4 +714,32 @@ TOG  (25/25)
 
 */
 
-// 2. 
+// 2.
+/*
+
+Title: Vin Fletcher 
+
+
+Story: 
+
+The true Programmer does not have to fight the Uncoded One alone.
+The hero can have other heroes (companions) that should get their turn to fight. 
+In this challenge, we will add our favorite arrow maker, Vin Fletcher to the game. 
+This challenge will also add in the possibility for an attack to sometimes miss. 
+
+
+Objectives: 
+
+- When an attack generates attack data, it must also include a probability of success. 
+0 is guaranteed failure, 1 is guaranteed success, 0.5 is 50/50 etc.
+
+- Modify your attack action to account for the possibility of missing. 
+If an attack misses, don't damage the target and instead report that the attack missed. 
+Example: "VIN FLETCHER MISSED"
+
+- Create a new character type to represent VIN FLETCHER.
+He starts with 15 HP.
+If you did the Gear challenge, Vin should have the same standard attack PUNCH as the true Programmer has and equip him ith Vin's Bow gear with an attack called quick shot that deals 3 damage but only succeeds 50% of the time. 
+If you did not do the Gear Challenge, give Vin quick shot as his standard attack. 
+
+*/

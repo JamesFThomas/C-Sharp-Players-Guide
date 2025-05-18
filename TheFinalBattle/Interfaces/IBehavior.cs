@@ -11,6 +11,6 @@ namespace TheFinalBattle.Interfaces
     {
         string Name { get; set; }
 
-        void Execute(Character character, Character? target);
+        void Execute(Character character, Character? target, int? damage);
     }
 }

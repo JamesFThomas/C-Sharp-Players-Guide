@@ -33,7 +33,7 @@ namespace TheFinalBattle.Classes
         {
             if (Behaviors.TryGetValue(behaviorName, out IBehavior? behavior))
             {
-                behavior.Execute(this, target);
+                behavior.Execute(this, target, null);
             }
             else
             {

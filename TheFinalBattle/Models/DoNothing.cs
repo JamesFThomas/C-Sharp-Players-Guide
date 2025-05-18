@@ -13,12 +13,10 @@ namespace TheFinalBattle.Classes
 
         public DoNothing() { }
 
-        public void Execute(Character character, Character? target)
+        public void Execute(Character character, Character? target, int? damage)
         {
-
-
             Console.WriteLine($"{character.Name} will {Name}");
-
         }
+
     }
 }

@@ -12,29 +12,57 @@ namespace TheFinalBattle.Classes
         public string Name { get; set; }
         public int Damage { get; set; }
 
+        protected static readonly Random random = new Random();
+
         public StandardAttack(string name, int damage)
         {
             Name = name;
             Damage = damage;
         }
-        public virtual void Execute(Character attacker, Character? target)
+        public virtual void Execute(Character attacker, Character? target, int? damage)
         {
-            Console.WriteLine($"\n{attacker.Name} used {Name} on {target?.Name}");
-            
-            Console.WriteLine($"{Name} dealt {Damage} damage to {target?.Name}");
-
             if (target != null)
             {
-                target.CurrentHP -= Damage;
-                
-                if (target.CurrentHP <= 0) // don't reduce HP below 0
-                { 
-                    target.CurrentHP = 0;
+                // calculate probability of success before adding damage
+                var success = SuccessProbability();
+
+                int actualDamage = damage ?? Damage;
+
+                if (success == 1)
+                {
+                    // landed attack
+                    Console.WriteLine($"\n{attacker.Name} used {Name} on {target.Name}");
+
+                    Console.WriteLine($"{Name} dealt {Damage} damage to {target.Name} with a {success} success rate!");
+
+                    target.CurrentHP -= actualDamage; 
+
+                    if (target.CurrentHP <= 0) 
+                    {
+                        target.CurrentHP = 0;
+                    }
                 }
+                else
+                {
+                    // missed attack
+                    Console.WriteLine($"{attacker.Name} MISSED {target.Name} with {Name} attack!");
+                    return;
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("No target to attack.");
+                return;
             }
 
-            Console.WriteLine($"{target?.Name} health is now {target?.Health}");
+            Console.WriteLine($"{target.Name} health is now {target.Health}");
+        }
 
+        public int SuccessProbability()
+        {
+            double probability = random.NextDouble();
+            return probability < 0.5 ? 1 : 0;
         }
     }
 }
